@@ -5,8 +5,12 @@ This Class stored utility methods that can be used across the project
  */
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.Set;
 
 public class BrowserUtils {
@@ -41,4 +45,13 @@ public class BrowserUtils {
         Assert.assertTrue(driver.getTitle().contains(expectedInTitle));
     }
 
+    public static void explicitWait(WebElement target){
+        WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.invisibilityOf(target));
+    }
+
+    public static void explicitWait(String title) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.titleContains(title));
+    }
 }

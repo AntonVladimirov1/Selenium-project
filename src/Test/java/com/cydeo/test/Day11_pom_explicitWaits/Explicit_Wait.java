@@ -22,6 +22,7 @@ public class Explicit_Wait {
     public void test1_wait_until_title(){
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.titleIs("Dynamic title"));
+
         DynamicLoad7Page dynamicLoad7Page = new DynamicLoad7Page();
         Assert.assertTrue(dynamicLoad7Page.doneMessage.isDisplayed());
         Assert.assertTrue(dynamicLoad7Page.image.isDisplayed());

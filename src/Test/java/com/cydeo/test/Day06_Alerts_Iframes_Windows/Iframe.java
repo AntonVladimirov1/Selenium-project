@@ -31,7 +31,7 @@ public class Iframe {
         WebElement paragraphText = driver.findElement(By.xpath("//p[.='Your content goes here.']"));
         Assert.assertTrue(paragraphText.isDisplayed());
 
-        driver.switchTo().parentFrame();  //* from Iframe (back to main HTML)
+        driver.switchTo().parentFrame();  //* from Iframe (back to main HTML)/or .defaultContent
         //driver.switchTo().defaultContent(); // method to directly return to the main frame
 
         WebElement h3= driver.findElement(By.tagName("h3"));

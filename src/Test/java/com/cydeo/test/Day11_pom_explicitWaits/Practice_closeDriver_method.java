@@ -1,6 +1,7 @@
 package com.cydeo.test.Day11_pom_explicitWaits;
 
 import com.cydeo.Utilities.Driver;
+import org.openqa.selenium.WindowType;
 import org.testng.annotations.Test;
 
 public class Practice_closeDriver_method {
@@ -13,6 +14,7 @@ public class Practice_closeDriver_method {
 
     @Test
     public void test2(){
+        Driver.getDriver().switchTo().newWindow(WindowType.TAB);
         Driver.getDriver().get("https://google.com");
         Driver.closeDriver();
     }

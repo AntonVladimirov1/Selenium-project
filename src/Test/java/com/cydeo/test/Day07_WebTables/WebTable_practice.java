@@ -25,5 +25,6 @@ public class WebTable_practice {
         for (WebElement eachMan : allItem) {
             System.out.println("eachMan.Row = " + eachMan.getText());
         }
+
     }
 }

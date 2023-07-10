@@ -1,4 +1,4 @@
-package com.cydeo.test.Day10_Upload_Action_JsExecutor;
+package com.cydeo.test.Day10_UploadFiles_Action_JsExecutor;
 
 import com.cydeo.Utilities.BrowserUtils;
 import com.cydeo.Utilities.Driver;

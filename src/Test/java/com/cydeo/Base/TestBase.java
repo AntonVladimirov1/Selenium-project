@@ -2,6 +2,7 @@ package com.cydeo.Base;
 
 import com.cydeo.Utilities.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 import java.time.Duration;
@@ -15,6 +16,10 @@ public abstract class TestBase {
         driver= WebDriverFactory.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+    @AfterClass
+    public void tearDown(){
+        driver.quit();
     }
 
 }

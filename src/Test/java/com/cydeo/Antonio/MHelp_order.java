@@ -15,7 +15,7 @@ public class MHelp_order {
         WebDriver driver = new ChromeDriver();
 
         driver.get("https://www.movinghelpd.com/login");                                                                                       //Login page
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys("antoniopupkin1972@gmail.com");                 //Username
         driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys("Locerr11@@");                                  //Password
@@ -24,17 +24,17 @@ public class MHelp_order {
 
         driver.navigate().to("https://www.movinghelpd.com/");                                                                               //Home button
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys("12100 Northpointe Blvd Tomball, Texas 77377, United States");                                                                                                         //Address
-        driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                    //Date
-        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[4]/td[5]/a")).click();                          //Exact date
+        driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                    //Date field
+        driver.findElement(By.xpath("//*[@id=\"ui-datepicker-div\"]/table/tbody/tr[4]/td[2]/a")).click();                          //Exact date
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobTime_Mobile\"]")).sendKeys("Morning");      //Time
-        driver.findElement(By.cssSelector("#movinghelp > div > div:nth-child(2) > form > div:nth-child(7) > div > button")).click();            //Search
+        driver.findElement(By.xpath("//button[.='Search']")).click();                                                               //Search
         driver.navigate().refresh();
         Thread.sleep(1000);
 
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                //Specific provider click
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                               //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                         //Add to Cart
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         driver.findElement(By.xpath("//div[@id='successModal']//a[2]")).click();                                                   //View Cart
 
         // ==========================================>> Payment <<=======================================================================================
@@ -49,7 +49,6 @@ public class MHelp_order {
 
         //==========================================>> Confirm Order <<==================================================================================
 
-        //driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                       //Submit
-
+        driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                       //Submit
     }
 }

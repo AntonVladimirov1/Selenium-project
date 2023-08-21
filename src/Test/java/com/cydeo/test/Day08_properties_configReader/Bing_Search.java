@@ -27,7 +27,7 @@ public class Bing_Search  {
         WebElement searchBox = Driver.getDriver().findElement(By.xpath("//textarea[@name='q']"));
         searchBox.click();
         searchBox.sendKeys("apple" + Keys.ENTER);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
 
         String actTitle = Driver.getDriver().getTitle();
         String expTitle = "apple - Search";
@@ -35,8 +35,7 @@ public class Bing_Search  {
         System.out.println("actTitle = " + actTitle);
         Assert.assertEquals(actTitle,expTitle);
 
-
-
+        Driver.closeDriver();
     }
 
 }

@@ -9,13 +9,10 @@ public class ConfigReader {
     private static Properties properties = new Properties();
 
     static {
-
         try {
             FileInputStream file = new FileInputStream("config.properties");
             properties.load(file);
-
             file.close();
-
         } catch (IOException e) {
             System.out.println("FILE NOT FOUND with given path!!!");
             e.printStackTrace();

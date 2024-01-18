@@ -9,9 +9,33 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class devMH_order {
+public class devMH_order extends TimerTask {
+
+
     public static void main(String[] args) {
+
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Chicago"));
+        calendar.set(Calendar.HOUR_OF_DAY, 6);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        timer.scheduleAtFixedRate(new devMH_order(), calendar.getTime(), 24 * 60 * 60 * 1000);
+
+    }
+
+    @Override
+    public void run() {
+
+        // Created String variable to pick current date
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        LocalDate today = LocalDate.now();
+        String dateToday = df.format(today);
 
         WebDriverManager.chromedriver().setup();
         // Create an instance of browser
@@ -28,7 +52,7 @@ public class devMH_order {
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                         //Home button
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys("12100 Northpointe Blvd Tomball, Texas 77377, United States");                                                                                                         //Address
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                   //Date field
-        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='"+dateToday+"']")).click();                            //Current date
+        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + dateToday + "']")).click();                            //Current date
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobTime_Mobile\"]")).sendKeys("Morning");      //Time
         driver.findElement(By.xpath("//button[.='Search']")).click();                                                               //Search
         //driver.navigate().refresh();
@@ -53,10 +77,27 @@ public class devMH_order {
         //==========================================>> Confirm Order <<==================================================================================
 
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                       //Submit
-    }
-    // Created String variable to pick current date
-    static DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
-    static LocalDate today = LocalDate.now();
-    static String dateToday = df.format(today);
 
+        //=================================================>> End <<=====================================================================================
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        /*TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "target/screenshot_" + today + ".png";
+
+        try {
+            org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
+            System.out.println("Screenshot saved: " + screenshotPath);
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
+         */
+        driver.quit();
+    }
 }

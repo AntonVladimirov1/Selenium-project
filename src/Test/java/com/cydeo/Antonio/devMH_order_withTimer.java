@@ -9,11 +9,28 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class devMH_order {
+public class devMH_order_withTimer extends TimerTask {
+
 
     public static void main(String[] args) {
 
+        Timer timer = new Timer();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Chicago"));
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        timer.scheduleAtFixedRate(new devMH_order_withTimer(), calendar.getTime(), 24 * 60 * 60 * 1000);
+
+    }
+
+    @Override
+    public void run() {
 
         // Created String variable to pick current date
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
@@ -62,6 +79,24 @@ public class devMH_order {
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                       //Submit
 
         //=================================================>> End <<=====================================================================================
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        /*TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "target/screenshot_" + today + ".png";
+
+        try {
+            org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
+            System.out.println("Screenshot saved: " + screenshotPath);
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+         */
 
         driver.quit();
     }

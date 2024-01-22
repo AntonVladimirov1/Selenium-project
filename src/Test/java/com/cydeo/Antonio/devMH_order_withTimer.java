@@ -21,8 +21,8 @@ public class devMH_order_withTimer extends TimerTask {
 
         Timer timer = new Timer();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Chicago"));
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 45);
         calendar.set(Calendar.SECOND, 0);
 
         timer.scheduleAtFixedRate(new devMH_order_withTimer(), calendar.getTime(), 24 * 60 * 60 * 1000);
@@ -83,7 +83,7 @@ public class devMH_order_withTimer extends TimerTask {
 
         //=================================================>> End <<=====================================================================================
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

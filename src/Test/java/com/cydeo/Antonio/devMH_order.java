@@ -14,7 +14,6 @@ public class devMH_order {
 
     public static void main(String[] args) {
 
-
         // Created String variable to pick current date
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
@@ -24,6 +23,7 @@ public class devMH_order {
         // Create an instance of browser
         WebDriver driver = new ChromeDriver();
 
+        // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHloginURL"));                                                                                 //Login page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
@@ -32,6 +32,7 @@ public class devMH_order {
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                     //Submit
         //BrowserUtils.sleep(2);
 
+        // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                         //Home button
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys("12100 Northpointe Blvd Tomball, Texas 77377, United States");                                                                                                         //Address
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                   //Date field
@@ -41,6 +42,7 @@ public class devMH_order {
         //driver.navigate().refresh();
         //BrowserUtils.sleep(1);
 
+        // ==========================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                               //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                         //Add to Cart
@@ -62,6 +64,24 @@ public class devMH_order {
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                       //Submit
 
         //=================================================>> End <<=====================================================================================
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        /*TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "target/screenshot_" + today + ".png";
+
+        try {
+            org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
+            System.out.println("Screenshot saved: " + screenshotPath);
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+         */
 
         driver.quit();
     }

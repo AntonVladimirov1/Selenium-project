@@ -41,6 +41,7 @@ public class devMH_order_withTimer extends TimerTask {
         // Create an instance of browser
         WebDriver driver = new ChromeDriver();
 
+        // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHloginURL"));                                                                                 //Login page
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
@@ -49,6 +50,7 @@ public class devMH_order_withTimer extends TimerTask {
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                     //Submit
         //BrowserUtils.sleep(2);
 
+        // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                         //Home button
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys("12100 Northpointe Blvd Tomball, Texas 77377, United States");                                                                                                         //Address
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                   //Date field
@@ -58,6 +60,7 @@ public class devMH_order_withTimer extends TimerTask {
         //driver.navigate().refresh();
         //BrowserUtils.sleep(1);
 
+        // ==========================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                               //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                         //Add to Cart

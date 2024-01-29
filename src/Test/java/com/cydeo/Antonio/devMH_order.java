@@ -1,12 +1,15 @@
 package com.cydeo.Antonio;
 
-import com.cydeo.Utilities.BrowserUtils;
 import com.cydeo.Utilities.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -46,7 +49,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        BrowserUtils.sleep(1);
+        //BrowserUtils.sleep(1);
         driver.findElement(By.xpath("//div[@id='successModal']//a[.='View Cart']")).click();                                     //View Cart
 
         // ==========================================>> Payment <<=======================================================================================
@@ -64,24 +67,22 @@ public class devMH_order {
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
 
         //=================================================>> End <<=====================================================================================
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
+        try {Thread.sleep(3000);
+        }
+        catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        /*TakesScreenshot ts = (TakesScreenshot) driver;
+        TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
 
-        try {
-            org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
+        try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
             System.out.println("Screenshot saved: " + screenshotPath);
-        } catch (
-                IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
-         */
 
         driver.quit();
     }

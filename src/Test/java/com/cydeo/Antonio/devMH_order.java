@@ -1,5 +1,6 @@
 package com.cydeo.Antonio;
 
+import com.cydeo.Utilities.BrowserUtils;
 import com.cydeo.Utilities.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -49,11 +50,10 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        //BrowserUtils.sleep(1);
-        driver.findElement(By.xpath("//div[@id='successModal']//a[.='View Cart']")).click();                                     //View Cart
+        BrowserUtils.sleep(2);
+        driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
         // ==========================================>> Payment <<=======================================================================================
-
         driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));          //Card num
         driver.findElement(By.xpath("//*[@id='ExpirationMonth']")).sendKeys("12");                                   //Card
         driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2025");                                  //Card

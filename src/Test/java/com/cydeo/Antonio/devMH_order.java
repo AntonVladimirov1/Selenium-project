@@ -19,10 +19,10 @@ public class devMH_order {
     public static void main(String[] args) {
 
         // Created String variable to pick CURRENT DATE (from DatePicker)
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         String currentDate = df.format(today);
-
+        //==================================================================
         WebDriverManager.chromedriver().setup();
         // Create an instance of browser
         WebDriver driver = new ChromeDriver();
@@ -40,6 +40,7 @@ public class devMH_order {
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys(ConfigReader.getProperty("address1"));                                                                                                                                                //Address
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                  //Date field
+        //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                      //Current date
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobTime_Mobile\"]")).sendKeys("Morning");    //Time
         driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search

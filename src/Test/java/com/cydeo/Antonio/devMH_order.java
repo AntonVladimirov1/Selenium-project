@@ -15,11 +15,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class devMH_order {
-
+    public static String jobNumber;
+    public static String orderNumber;
     public static void main(String[] args) {
 
                             // Created String variable to pick CURRENT DATE (from DatePicker)
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
         String currentDate = df.format(today);
         //==================================================================
@@ -51,8 +52,12 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        BrowserUtils.sleep(3);
+        BrowserUtils.sleep(4);
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
+
+        // ==============================================>> Discount Employee <<=============================================================================
+        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys("EMPLOYEE");                            //Employee discount
+        //driver.findElement(By.xpath("//button[.='Apply']")).click();
 
         // ==============================================>> Payment <<=======================================================================================
         driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));          //Card num
@@ -70,17 +75,19 @@ public class devMH_order {
         //====================================================>> Pull Job number <<============================================================================
 
         driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']")).click();
-        String jobNumber;
+
         jobNumber = driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText();
+        orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
         System.out.println(jobNumber);
-        BrowserUtils.sleep(2);
+        System.out.println(orderNumber);
+        //BrowserUtils.sleep(2);
 
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
 
         try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
-            System.out.println("Successful order screenshot in Target folder");
+            System.out.println("Screenshot in 'Target' folder");
         }
         catch (IOException e) {
             e.printStackTrace();

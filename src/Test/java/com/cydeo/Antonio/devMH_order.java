@@ -56,7 +56,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
         // ==============================================>> Discount Employee <<=============================================================================
-        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys("EMPLOYEE");                            //Employee discount
+        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys(ConfigReader.getProperty("discountEmployee"));     //Employee discount
         //driver.findElement(By.xpath("//button[.='Apply']")).click();
 
         // ==============================================>> Payment <<=======================================================================================

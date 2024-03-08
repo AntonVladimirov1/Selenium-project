@@ -20,7 +20,7 @@ public class devMH_order {
     public static void main(String[] args) {
 
                             // Created String variable to pick CURRENT DATE (from DatePicker)
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         String currentDate = df.format(today);
         //==================================================================
@@ -29,7 +29,7 @@ public class devMH_order {
         WebDriver driver = new ChromeDriver();
 
         // ==========================================>> LogIn <<=======================================================================================
-        driver.get(ConfigReader.getProperty("devMHloginURL"));                                                                                //Login page
+        driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                                //Login page
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("devMHusername"));               //Username
@@ -52,7 +52,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        BrowserUtils.sleep(4);
+        BrowserUtils.sleep(7);
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
         // ==============================================>> Discount Employee <<=============================================================================
@@ -95,7 +95,7 @@ public class devMH_order {
          //============================>> Closing Browser <<============================
         driver.quit();
 
-        //=================================================================>> End <<============================================================================
+        //=================================================================>> End <<============================================================================//
 
     }
 }

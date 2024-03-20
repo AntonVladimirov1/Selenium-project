@@ -15,14 +15,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class devMH_order {
+
+    public static String currentDate;
     public static String jobNumber;
     public static String orderNumber;
     public static void main(String[] args) {
 
                             // Created String variable to pick CURRENT DATE (from DatePicker)
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
-        String currentDate = df.format(today);
+        currentDate = df.format(today);
         //==================================================================
         WebDriverManager.chromedriver().setup();
                             // Create an instance of browser
@@ -52,7 +54,8 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        BrowserUtils.sleep(7);
+        BrowserUtils.sleep(6);
+        //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']"));
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
         // ==============================================>> Discount Employee <<=============================================================================

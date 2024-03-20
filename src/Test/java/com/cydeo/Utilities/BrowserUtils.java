@@ -4,6 +4,7 @@ package com.cydeo.Utilities;
 This Class stored utility methods that can be used across the project
  */
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -49,6 +50,16 @@ public class BrowserUtils {
     public static void explicitWait(WebElement target){
         WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.invisibilityOf(target));
+    }
+
+    public static WebElement waitVisibility(By locator){
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public static void explicitWaitClickable(WebElement target){
+        WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(target));
     }
 
     public static void explicitWait(String title) {

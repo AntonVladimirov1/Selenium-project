@@ -50,7 +50,7 @@ public class devMH_order {
         //driver.navigate().refresh();
         //BrowserUtils.sleep(1);
 
-        // ==========================================>> Provider select <<================================================================================
+        // ============================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
@@ -59,23 +59,28 @@ public class devMH_order {
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
         // ==============================================>> Discount Employee <<=============================================================================
-        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys(ConfigReader.getProperty("discountEmployee"));     //Employee discount
+        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys(ConfigReader.getProperty("discountEmployee"));    //Employee discount
         //driver.findElement(By.xpath("//button[.='Apply']")).click();
 
-        // ==============================================>> Payment <<=======================================================================================
-        driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));          //Card num
-        driver.findElement(By.xpath("//*[@id='ExpirationMonth']")).sendKeys("12");                                   //Card
-        driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2025");                                  //Card
-        driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));               //Card CSC
+        // ====================================================>> Payment Cert <<============================================================================
+        driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("cert"));                  //Cert num
+        driver.findElement(By.xpath("//button[.='Apply']")).click();                                                            //Apply
+
+        // =====================================================>> Payment CC <<=============================================================================
+        //driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));          //Card num
+        //driver.findElement(By.xpath("//*[@id='ExpirationMonth']")).sendKeys("12");                                   //Card
+        //driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2025");                                  //Card
+        //driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));               //Card CSC
+
+        // =====================================================>> Other Info Input <<=======================================================================
         driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                         //Contact method
         driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[2]//..")).click();                                 //Text message "NO"
         driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                                 //CheckBox Terms
 
-        //====================================================>> Confirm Order <<==============================================================================
-
+        //====================================================>> Confirm Order <<=============================================================================
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
 
-        //====================================================>> Pull Job number <<============================================================================
+        //====================================================>> Pull Job number <<===========================================================================
 
         driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']")).click();
 

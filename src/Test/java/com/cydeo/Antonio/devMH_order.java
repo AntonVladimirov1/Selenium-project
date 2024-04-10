@@ -22,7 +22,7 @@ public class devMH_order {
     public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -31,10 +31,8 @@ public class devMH_order {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        //=============== =================== Screenshot (initiate variables) ====================================
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "target/screenshot_" + today + ".png";
+        //=================================== Screenshot (initiate variables) ====================================
+
 
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                                //Login page
@@ -54,14 +52,6 @@ public class devMH_order {
         driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search
         //driver.navigate().refresh();
         BrowserUtils.sleep(2);
-
-        //===================================================>> Taking Screenshot <<===========================================================================
-        try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
-            System.out.println("Screenshot in 'Target' folder");
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // ============================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
@@ -101,6 +91,9 @@ public class devMH_order {
         System.out.println(orderNumber);
 
         //===================================================>> Taking Screenshot <<===========================================================================
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "target/screenshot_" + today + ".png";
         try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
             System.out.println("Screenshot in 'Target' folder");
         }

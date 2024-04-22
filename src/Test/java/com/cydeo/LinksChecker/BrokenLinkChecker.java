@@ -16,6 +16,7 @@ public class BrokenLinkChecker {
     public static void main(String[] args) {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
+        //driver.manage().window().maximize();
 
         // Open the webpage
         driver.get("https://translate.google.com/?sl=en&tl=ru&op=translate");

@@ -19,10 +19,13 @@ public class BrokenLinkChecker {
         //driver.manage().window().maximize();
 
         // Open the webpage
-        driver.get("https://translate.google.com/?sl=en&tl=ru&op=translate");
+        driver.get("https://www.movinghelp.com/");
 
         // Find all links on the webpage
         List<WebElement> links = driver.findElements(By.tagName("a"));
+        // Count links
+        int linkCount = links.size();
+        System.out.println("linkCount = " + linkCount);
 
         // Iterate over each link
         for (WebElement link : links) {
@@ -59,7 +62,6 @@ public class BrokenLinkChecker {
                 }
             }
         }
-
         // Close the WebDriver
         driver.quit();
 

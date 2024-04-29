@@ -31,9 +31,6 @@ public class devMH_order {
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        //=================================== Screenshot (initiate variables) ====================================
-
-
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                                //Login page
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));

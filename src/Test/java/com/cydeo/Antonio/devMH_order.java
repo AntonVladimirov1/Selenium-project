@@ -22,7 +22,7 @@ public class devMH_order {
     public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -37,10 +37,11 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("devMHusername"));               //Username
         driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                   //Submit
-        //BrowserUtils.sleep(2);
+        BrowserUtils.sleep(2);
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
+        //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys(ConfigReader.getProperty("address1"));                                                                                                                                                //Address
         driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
@@ -54,7 +55,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        BrowserUtils.sleep(6);
+        BrowserUtils.sleep(4);
         //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']"));
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 

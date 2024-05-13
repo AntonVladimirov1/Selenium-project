@@ -22,7 +22,7 @@ public class devMH_order {
     public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -82,7 +82,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
 
         //====================================================>> Pull Job number <<===========================================================================
-        driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']")).click();
+        driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
         jobNumber = driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText();
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
         System.out.println(jobNumber);

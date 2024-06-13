@@ -32,11 +32,14 @@ public class devMH_order {
         driver.manage().window().maximize();
 
         // ==========================================>> LogIn <<=======================================================================================
-        driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                                //Login page
+        driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                         //Login page
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        //devMHLoginPage loginPage = new devMHLoginPage();
+        //devMHLoginPage.login();
         driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("devMHusername"));               //Username
         driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                   //Submit
+
         BrowserUtils.sleep(2);
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
@@ -93,7 +96,7 @@ public class devMH_order {
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
         try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
-            System.out.println("Screenshot in 'Target' folder");
+            System.out.println("Screenshot saved");
         }
         catch (IOException e) {
             e.printStackTrace();

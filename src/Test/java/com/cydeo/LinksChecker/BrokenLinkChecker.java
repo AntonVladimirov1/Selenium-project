@@ -19,7 +19,7 @@ public class BrokenLinkChecker {
         //driver.manage().window().maximize();
 
         // Open the webpage
-        driver.get("https://www.movinghelp.com/");
+        driver.get("https://www.movinghelpd.com/");
 
         // Find all links on the webpage
         List<WebElement> links = driver.findElements(By.tagName("a"));

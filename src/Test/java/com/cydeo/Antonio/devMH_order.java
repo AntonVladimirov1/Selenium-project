@@ -96,7 +96,7 @@ public class devMH_order {
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
         try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
-            System.out.println("Screenshot saved");
+            System.out.println("Screenshot saved in Target");
         }
         catch (IOException e) {
             e.printStackTrace();

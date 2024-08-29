@@ -40,7 +40,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                   //Submit
 
-        BrowserUtils.sleep(2);
+        BrowserUtils.sleep(3);
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button

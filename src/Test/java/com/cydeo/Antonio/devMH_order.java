@@ -73,7 +73,7 @@ public class devMH_order {
         //driver.findElement(By.xpath("//button[.='Apply']")).click();
 
         // ====================================================>> Payment Cert <<============================================================================
-        //driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("cert"));                  //Cert num
+        //driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("certVIP"));                //Cert num
         //driver.findElement(By.xpath("//button[.='Apply']")).click();                                                            //Apply
 
         // =====================================================>> Payment CC <<=============================================================================

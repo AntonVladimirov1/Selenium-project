@@ -22,7 +22,7 @@ public class devMH_order {
     public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -58,14 +58,14 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
 
         //=============================================>> SafeLoad option <<================================================================================
-        //driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                     //SafeLoad modal close
-        //driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
+        driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                     //SafeLoad modal close
+        driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
         //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();        //SafeLoad option2
 
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        BrowserUtils.sleep(4);
-        //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']"));
+        BrowserUtils.sleep(3);
+        //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
         // ==================================================>> Discount Employee <<=========================================================================

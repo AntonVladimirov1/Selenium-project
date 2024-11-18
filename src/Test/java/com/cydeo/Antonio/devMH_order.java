@@ -59,7 +59,7 @@ public class devMH_order {
 
         //=============================================>> SafeLoad option <<================================================================================
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                     //SafeLoad modal close
-        driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
+        //driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
         //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();        //SafeLoad option2
 
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details

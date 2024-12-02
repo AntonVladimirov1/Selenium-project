@@ -22,7 +22,7 @@ public class devMH_order {
     public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 

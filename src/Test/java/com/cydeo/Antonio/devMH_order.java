@@ -62,19 +62,20 @@ public class devMH_order {
         // ============================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
 
-        // ============================================>> Service type select <<============================================================================
-        driver.findElement(By.xpath("//input[@id=\"LoadUnload_Enabled\"]/../span")).click();                                     // Load/Unload
-        driver.findElement(By.xpath("//input[@id=\"PackOrUnPack_Enabled\"]/../span")).click();                                   // Pack/Unpack
-        //driver.findElement(By.xpath("//input[@id=\"MaidServicesOrHomeCleaning_Enabled\"]/../span")).click();                     // Cleaning help
-        //driver.findElement(By.xpath("//input[@id=\"PianoMoving_Enabled\"]/../span")).click();                                    // Piano fee
-        //driver.findElement(By.xpath("//input[@id=\"SafeMoving_Enabled\"]/../span")).click();                                     // Gun Safe fee
-
         //=============================================>> SafeLoad option <<================================================================================
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                     //SafeLoad modal close
         //driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
         //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();        //SafeLoad option2
 
-        driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                             //Details
+        // ============================================>> Service type select <<============================================================================
+        driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                         // Load/Unload
+        driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
+        //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning help
+        //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano fee
+        //driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe fee
+
+        // ===============================================>> Details and Cart <<============================================================================
+        driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                            //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
         BrowserUtils.sleep(3);
         //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();
@@ -95,7 +96,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));                //Card CSC
 
         // =====================================================>> Other Info Input <<=======================================================================
-        driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                         //Contact method
+        driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                        //Contact method
         driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[2]//..")).click();                                 //Text message "NO"
         driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                                 //CheckBox Terms
 

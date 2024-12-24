@@ -8,6 +8,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,14 +23,18 @@ public class devMH_order {
     public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
         //=================================== Create an instance of Driver ======================================
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        //========================================= SetUp Headless mode (if needed) =============================
+        //ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--headless");
+
+        WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
+        //driver.manage().window().maximize();
 
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                         //Login page
@@ -57,6 +62,13 @@ public class devMH_order {
         // ============================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
 
+        // ============================================>> Service type select <<============================================================================
+        driver.findElement(By.xpath("//input[@id=\"LoadUnload_Enabled\"]/../span")).click();                                     // Load/Unload
+        driver.findElement(By.xpath("//input[@id=\"PackOrUnPack_Enabled\"]/../span")).click();                                   // Pack/Unpack
+        //driver.findElement(By.xpath("//input[@id=\"MaidServicesOrHomeCleaning_Enabled\"]/../span")).click();                     // Cleaning help
+        //driver.findElement(By.xpath("//input[@id=\"PianoMoving_Enabled\"]/../span")).click();                                    // Piano fee
+        //driver.findElement(By.xpath("//input[@id=\"SafeMoving_Enabled\"]/../span")).click();                                     // Gun Safe fee
+
         //=============================================>> SafeLoad option <<================================================================================
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                     //SafeLoad modal close
         //driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
@@ -74,13 +86,13 @@ public class devMH_order {
 
         // ====================================================>> Payment Cert <<============================================================================
         //driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("certVIP"));                //Cert num
-        //driver.findElement(By.xpath("//button[.='Apply']")).click();                                                            //Apply
+        //driver.findElement(By.xpath("//button[.='Apply']")).click();                                                             //Apply
 
         // =====================================================>> Payment CC <<=============================================================================
-        driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));          //Card num
+        driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));           //Card num
         driver.findElement(By.xpath("//*[@id='ExpirationMonth']")).sendKeys("12");                                   //Card
         driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2025");                                  //Card
-        driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));               //Card CSC
+        driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));                //Card CSC
 
         // =====================================================>> Other Info Input <<=======================================================================
         driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                         //Contact method
@@ -90,7 +102,7 @@ public class devMH_order {
         //====================================================>> Confirm Order <<=============================================================================
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
 
-        //====================================================>> Pull Job number <<===========================================================================
+        //====================================================>> Pull Job/Order number <<===========================================================================
         driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
         jobNumber = driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText();
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();

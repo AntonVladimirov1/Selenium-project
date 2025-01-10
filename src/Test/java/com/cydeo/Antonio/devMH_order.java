@@ -30,12 +30,13 @@ public class devMH_order {
         //=================================== Create an instance of Driver ======================================
         WebDriverManager.chromedriver().setup();
         //========================================= SetUp Headless mode (if needed) =============================
-        //ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--headless");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
 
         WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
         //driver.manage().window().maximize();
 
+        try{
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");                                                                         //Login page
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
@@ -114,7 +115,7 @@ public class devMH_order {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
-        try {org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
+        org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
             System.out.println("Screenshot saved in Target");
         }
         catch (IOException e) {

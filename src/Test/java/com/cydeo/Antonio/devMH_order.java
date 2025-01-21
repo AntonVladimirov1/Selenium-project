@@ -3,6 +3,7 @@ package com.cydeo.Antonio;
 import com.cydeo.Utilities.BrowserUtils;
 import com.cydeo.Utilities.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -17,10 +18,11 @@ import java.time.format.DateTimeFormatter;
 
 public class devMH_order {
 
-    public static String currentDate;
-    public static String jobNumber;
-    public static String orderNumber;
-    public static void main(String[] args) {
+           public static String currentDate;
+           public static String jobNumber;
+           public static String orderNumber;
+
+        public static void main(String[] args) {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
         DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
@@ -34,7 +36,7 @@ public class devMH_order {
         options.addArguments("--headless");
 
         WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
-        //driver.manage().window().maximize();
+        driver.manage().window().maximize();
 
         try{
         // ==========================================>> LogIn <<=======================================================================================
@@ -115,7 +117,7 @@ public class devMH_order {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
-        org.apache.commons.io.FileUtils.copyFile(source, new File(screenshotPath));
+        FileUtils.copyFile(source, new File(screenshotPath));
             System.out.println("Screenshot saved in Target");
         }
         catch (IOException e) {

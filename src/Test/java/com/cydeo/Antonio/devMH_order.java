@@ -35,7 +35,7 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
 
-        WebDriver driver = new ChromeDriver(options); //<<< need to insert in (options)
+        WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
         driver.manage().window().maximize();
 
             // ==========================================>> LogIn <<=======================================================================================
@@ -43,7 +43,7 @@ public class devMH_order {
             //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
             //devMHLoginPage loginPage = new devMHLoginPage();
             //devMHLoginPage.login();
-            driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("devMHusername"));               //Username
+            driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("devMHusername1"));               //Username
             driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
             driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                   //Submit
 
@@ -62,12 +62,12 @@ public class devMH_order {
             BrowserUtils.sleep(2);
 
             // ============================================>> Provider select <<================================================================================
-            driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                         //Provider select
+            driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                      //Provider select
 
-            //=============================================>> SafeLoad option <<================================================================================
-            driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                     //SafeLoad modal close
-            //driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                         //SafeLoad checkmark
-            //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();        //SafeLoad option2
+            //=============================================>> SAFELOAD option <<================================================================================
+            driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
+            driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                      //SafeLoad checkmark
+            driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
             // ============================================>> Service type select <<============================================================================
             //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                         // Load/Unload
@@ -79,8 +79,8 @@ public class devMH_order {
             // ===============================================>> Details and Cart <<============================================================================
             driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                            //Details
             driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-            BrowserUtils.sleep(4);
-            //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();
+            BrowserUtils.sleep(5);
+            //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']"));
             driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
             // ==================================================>> Discount Employee <<=========================================================================
@@ -98,22 +98,25 @@ public class devMH_order {
             driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));                //Card CSC
 
             // =====================================================>> Other Info Input <<=======================================================================
-            driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                        //Contact method
-            driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[2]//..")).click();                                 //Text message "NO"
-            driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                                 //CheckBox Terms
+            driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                      //Contact method
+            driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[2]//..")).click();                               //Text message "NO"
+            driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                               //CheckBox Terms
 
             //====================================================>> Confirm Order <<=============================================================================
             driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
+            BrowserUtils.sleep(4);
+            driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                //Confirmation Modal close
 
-        //========================================================>> Taking Screenshot <<=========================================================================
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "target/screenshot_" + today + ".png";
-        FileUtils.copyFile(source, new File(screenshotPath));
+
+            //========================================================>> Screenshot <<=====================================================================
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File source = ts.getScreenshotAs(OutputType.FILE);
+            String screenshotPath = "target/screenshot_" + today + ".png";
+            FileUtils.copyFile(source, new File(screenshotPath));
             System.out.println("Screenshot saved in Target");
 
-                //====================================================>> Pull Job/Order number <<================================================================
-                driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
+            //====================================================>> Pull Job/Order number <<================================================================
+               // driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
                 jobNumber = driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText();
                 orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
                 System.out.println(jobNumber);
@@ -123,5 +126,6 @@ public class devMH_order {
         driver.quit();
 
     }
+
 }
                     //========================================================>> End <<=======================================================//

@@ -10,9 +10,12 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -35,7 +38,7 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
 
-        WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
+        WebDriver driver = new ChromeDriver(options); //<<< need to insert in (options)
         driver.manage().window().maximize();
 
             // ==========================================>> LogIn <<=======================================================================================
@@ -56,7 +59,7 @@ public class devMH_order {
             driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                  //Date field
             //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
             driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                      //Current date
-            driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobTime_Mobile\"]")).sendKeys("Evening");    //Time
+            driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobTime_Mobile\"]")).sendKeys("Afternoon");    //Time
             driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search
             //driver.navigate().refresh();
             BrowserUtils.sleep(2);
@@ -66,8 +69,8 @@ public class devMH_order {
 
             //=============================================>> SAFELOAD option <<================================================================================
             driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
-            driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                      //SafeLoad checkmark
-            driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
+            //driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                      //SafeLoad checkmark
+            //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
             // ============================================>> Service type select <<============================================================================
             //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                         // Load/Unload
@@ -79,8 +82,10 @@ public class devMH_order {
             // ===============================================>> Details and Cart <<============================================================================
             driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                            //Details
             driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-            BrowserUtils.sleep(5);
+            //BrowserUtils.sleep(6);
             //BrowserUtils.waitVisibility(By.xpath("//div[@id='successModal']//div//a[.='View Cart']"));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")));  //Wait
             driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
             // ==================================================>> Discount Employee <<=========================================================================

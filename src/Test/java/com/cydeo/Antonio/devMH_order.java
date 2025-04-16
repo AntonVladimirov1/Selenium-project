@@ -25,6 +25,7 @@ public class devMH_order {
     public static String jobNumber;
     public static String orderNumber;
 
+
     public static void main(String[] args) throws IOException {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
@@ -40,6 +41,8 @@ public class devMH_order {
 
         WebDriver driver = new ChromeDriver(options); //<<< need to insert in (options)
         driver.manage().window().maximize();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));        // declare "wait" variable
 
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHhomeURL") + "login");                                                                         //Login page
@@ -68,7 +71,6 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                      //Provider select
 
         //=============================================>> SAFELOAD option <<================================================================================
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));                                                    // declare "wait" variable
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
         driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                      //SafeLoad checkmark
@@ -84,7 +86,6 @@ public class devMH_order {
         // ===============================================>> Details and Cart <<============================================================================
         driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                            //Details
         driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
-        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")));  //Wait
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 

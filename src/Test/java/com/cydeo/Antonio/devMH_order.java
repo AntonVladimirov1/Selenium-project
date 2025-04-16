@@ -33,12 +33,10 @@ public class devMH_order {
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
-        //=================================== Create an instance of Driver ======================================
-        WebDriverManager.chromedriver().setup();
         //========================================= SetUp Headless mode (if needed) =============================
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
-
+        //=================================== Create an instance of Driver ======================================
         WebDriver driver = new ChromeDriver(options); //<<< need to insert in (options)
         driver.manage().window().maximize();
 

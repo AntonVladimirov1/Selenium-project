@@ -29,7 +29,7 @@ public class devMH_order {
     public static void main(String[] args) throws IOException {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -47,8 +47,8 @@ public class devMH_order {
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         //devMHLoginPage loginPage = new devMHLoginPage();
         //devMHLoginPage.login();
-        driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("devMHusername1"));               //Username
-        driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
+        driver.findElement(By.xpath("//*[@id='Username']")).sendKeys(ConfigReader.getProperty("devMHusername1"));               //Username
+        driver.findElement(By.xpath("//*[@id='Password']")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                   //Submit
 
         BrowserUtils.sleep(3);
@@ -56,11 +56,11 @@ public class devMH_order {
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
         //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
-        driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_ServiceAddress\"]")).sendKeys(ConfigReader.getProperty("addressTX"));                                                                                                                                                //Address
-        driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobDate\"]")).click();                                  //Date field
+        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX"));                                                                                                                                                //Address
+        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                      //Current date
-        driver.findElement(By.xpath("//*[@id=\"SearchModel_FirstLocation_JobTime_Mobile\"]")).sendKeys("Afternoon");    //Time
+        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Afternoon");    //Time
         driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search
         //driver.navigate().refresh();
         BrowserUtils.sleep(2);
@@ -71,7 +71,7 @@ public class devMH_order {
         //=============================================>> SAFELOAD option <<================================================================================
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
-        driver.findElement(By.xpath("//input[@id=\"LoadUnload_Safeload_Enabled\"]/../span")).click();                      //SafeLoad checkmark
+        driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                      //SafeLoad checkmark
         driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
         // ============================================>> Service type select <<============================================================================
@@ -82,8 +82,8 @@ public class devMH_order {
         //driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe fee
 
         // ===============================================>> Details and Cart <<============================================================================
-        driver.findElement(By.xpath("//*[@id=\"DetailsOfMove\"]")).sendKeys("dfgdfgdfg");                            //Details
-        driver.findElement(By.xpath("//*[@id=\"submitButton\"]")).click();                                                       //Add to Cart
+        driver.findElement(By.xpath("//*[@id='DetailsOfMove']")).sendKeys("dfgdfgdfg");                            //Details
+        driver.findElement(By.xpath("//*[@id='submitButton']")).click();                                                       //Add to Cart
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")));  //Wait
         driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
 
@@ -111,13 +111,12 @@ public class devMH_order {
         BrowserUtils.sleep(4);
         driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                //Confirmation Modal close
 
-
         //========================================================>> Screenshot <<=====================================================================
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/screenshot_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot saved in Target");
+        System.out.println("Screenshot in target folder");
 
         //====================================================>> Pull Job/Order number <<================================================================
         // driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
@@ -126,7 +125,26 @@ public class devMH_order {
         System.out.println(jobNumber);
         System.out.println(orderNumber);
 
-        //=======================================================>> Closing Browser <<==================================================================
+        //=====================================================>> Find Scheduled Job (just created)<<=====================================================
+       /* driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                 //My Jobs
+
+        //*[@id="jobdetailsID"]/a/h3/span[2]/text()
+        driver.findElement(By.xpath("//*[@id='jobdetailsID']/a/h3/span[2]/text()='" + jobNumber + "')).click();
+        //*[@id="primary"]/ul/li[2]/div/ul/li[1]/a
+        //*[@id="primary"]/ul/li[2]/div[2]/ul/li[1]/a
+        //*[@id='dynatraceJobNumber'][.='JB-3b6e7285']
+        //*[@id="jobdetailsID"]/a/h3/span[2]/text()='Job Number: JB-3b6e7285'
+        //html/body/div[3]/section/div[3]/div/div/table/tbody/tr[1]/td[3]/text()
+        //html/body/div[3]/section/div[3]/div/div/table/tbody/tr[1]/td[3]/label
+
+        //=======================================================>> Add Hours to Job <<===================================================================
+        driver.findElement(By.xpath("//a[text()='Edit']")).click();
+        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();
+        driver.findElement(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")).click();
+
+        */
+
+        //=======================================================>> Closing Browser <<====================================================================
         driver.quit();
 
     }

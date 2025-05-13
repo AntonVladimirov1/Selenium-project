@@ -29,7 +29,7 @@ public class devMH_order {
     public static void main(String[] args) throws IOException {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -37,10 +37,10 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< need to insert in (options)
+        WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
         driver.manage().window().maximize();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));        // declare "wait" variable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));        // declare "wait" variable
 
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("devMHhomeURL") + "login");                                                                         //Login page
@@ -68,7 +68,7 @@ public class devMH_order {
         // ============================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                      //Provider select
 
-        //=============================================>> SAFELOAD option <<================================================================================
+        //=============================================>> Safeload option <<================================================================================
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
         driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                      //SafeLoad checkmark

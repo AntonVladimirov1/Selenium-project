@@ -75,7 +75,7 @@ public class devMH_order {
 
         // ============================================>> Service type select <<============================================================================
         //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                         // Load/Unload
-        driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
+        //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
         //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning help
         //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano fee
         //driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe fee

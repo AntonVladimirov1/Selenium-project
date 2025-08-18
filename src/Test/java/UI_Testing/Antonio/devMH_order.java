@@ -1,6 +1,7 @@
 package UI_Testing.Antonio;
 
 import UI_Testing.Utilities.BrowserUtils;
+import UI_Testing.Utilities.CRM_Login;
 import UI_Testing.Utilities.ConfigReader;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -28,7 +29,7 @@ public class devMH_order {
     public static void main(String[] args) throws IOException {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -36,26 +37,20 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< need to insert in (options)
+        WebDriver driver = new ChromeDriver(options); //<<< need to insert (options) for headless mode
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));        // declare "wait" variable
 
-        // ==========================================>> LogIn <<=======================================================================================
-        driver.get(ConfigReader.getProperty("devMHhomeURL") + "login");                                                                         //Login page
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        //devMHLoginPage loginPage = new devMHLoginPage();
-        //devMHLoginPage.login();
-        driver.findElement(By.xpath("//*[@id='Username']")).sendKeys(ConfigReader.getProperty("devMHusername1"));               //Username
-        driver.findElement(By.xpath("//*[@id='Password']")).sendKeys(ConfigReader.getProperty("devMHpassword"));               //Password
-        driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                   //Submit
+        // ==========================================>> LogIn <<==========================================================================================
+        devMHLoginPage.login(driver);                                                                                                         //Login page
 
         BrowserUtils.sleep(3);
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
         //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
-        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX"));                                                                                                                                                //Address
+        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                      //Current date
@@ -74,8 +69,8 @@ public class devMH_order {
         //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
         // ============================================>> Service type select <<============================================================================
-        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                         // Load/Unload (click if need to cancel)
-        driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
+        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                      // Load/Unload (click if need to cancel)
+        //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
         //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
         //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
         //driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe
@@ -108,7 +103,7 @@ public class devMH_order {
         //====================================================>> Confirm Order <<=============================================================================
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
         BrowserUtils.sleep(4);
-        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                //Confirmation Modal close
+        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                        //Confirmation Modal close
 
         //========================================================>> Screenshot <<=====================================================================
         TakesScreenshot ts = (TakesScreenshot) driver;

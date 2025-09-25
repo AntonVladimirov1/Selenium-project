@@ -30,14 +30,12 @@ public class ProdMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
 
-        WebDriver driver = new ChromeDriver(); //<<< need to insert in (options)
+        WebDriver driver = new ChromeDriver(); //<<< need to insert in (options) for headless
         driver.manage().window().maximize();
 
         // ==========================================>> LogIn <<=======================================================================================
         driver.get(ConfigReader.getProperty("prodMHhomeURL")+"login");                                                                           //Login page
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        //devMHLoginPage loginPage = new devMHLoginPage();
-        //devMHLoginPage.login();
+
         driver.findElement(By.xpath("//*[@id=\"Username\"]")).sendKeys(ConfigReader.getProperty("prodMHusername"));               //Username
         driver.findElement(By.xpath("//*[@id=\"Password\"]")).sendKeys(ConfigReader.getProperty("prodMHpassword"));                //Password
         driver.findElement(By.cssSelector("input[type='submit']")).click();                                                                    //Submit

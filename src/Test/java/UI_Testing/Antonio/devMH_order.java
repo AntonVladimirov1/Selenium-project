@@ -29,7 +29,7 @@ public class devMH_order {
     public static void main(String[] args) throws IOException {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
         LocalDate today = LocalDate.now();
         currentDate = df.format(today);
 
@@ -37,7 +37,7 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< need to insert (options) for headless mode
+        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));        // declare "wait" variable
@@ -69,7 +69,7 @@ public class devMH_order {
         //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
         // ============================================>> Service type select <<============================================================================
-        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                      // Load/Unload (click if need to cancel)
+        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                 // Load/Unload (click if need to cancel)
         //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
         //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
         //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
@@ -97,7 +97,7 @@ public class devMH_order {
 
         // =====================================================>> Other Info Input <<=======================================================================
         driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                      //Contact method
-        driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[2]//..")).click();                               //Text message "NO"
+        driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[1]//..")).click();                               //Text message "YES"
         driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                               //CheckBox Terms
 
         //====================================================>> Confirm Order <<=============================================================================

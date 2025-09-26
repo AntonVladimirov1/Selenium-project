@@ -42,8 +42,22 @@ public class devHelperAccountCreation {
         driver.findElement(By.xpath("//*[@id='TermsOfServiceAgreement']")).click();
         driver.findElement(By.xpath("//*[@id='register-button']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div['row']/h2[.='Tell Us About Yourself']")));
-        BrowserUtils.sleep(4);
+        //BrowserUtils.sleep(4);
+        driver.findElement(By.xpath("//*[@id='Address']")).sendKeys("2727 N Central ave");
+        driver.findElement(By.xpath("//*[@id='City']")).sendKeys("Phoenix");
+        driver.findElement(By.xpath("//*[@id='Zip']")).sendKeys("85004");
+        driver.findElement(By.xpath("//select[@id='State']/option[4]")).click();
+        driver.findElement(By.xpath("//*[@id='BusinessName']")).sendKeys("Best of the best");
+        driver.findElement(By.xpath("//*[@id='businessdescriptionrte']")).sendKeys("Best of the best dfgdfg dfgdfgdfg dgfdffdg dfgdffdg fgdfgdfg ");
+        driver.findElement(By.xpath("//label[@class='radio-DOTcheckN']")).click();
+        driver.findElement(By.xpath("//select[@id='ddl1']/option[2]")).click();
+        driver.findElement(By.xpath("//select[@id='HowDidYouHearAboutUsSelectedID']/option[8]")).click();
+        driver.findElement(By.xpath("//div[12]/div/fieldset/ul/li[1]/label")).click();
+        driver.findElement(By.xpath("//input[@id='IndependentProvider']/..")).click();
+        driver.findElement(By.xpath("//button[.='Next']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[.='Photo and Document Uploads']")));
 
-        driver.quit();
+
+        //driver.quit();
     }
 }

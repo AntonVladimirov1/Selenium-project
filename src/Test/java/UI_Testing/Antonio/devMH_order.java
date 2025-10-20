@@ -56,8 +56,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                      //Current date
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");    //Time
         driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search
-        //driver.navigate().refresh();
-        BrowserUtils.sleep(2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                         //wait
 
         // ============================================>> Provider select <<================================================================================
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                      //Provider select
@@ -102,7 +101,7 @@ public class devMH_order {
 
         //====================================================>> Confirm Order <<=============================================================================
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
-        BrowserUtils.sleep(4);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")));
         driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                        //Confirmation Modal close
 
         //========================================================>> Screenshot <<=====================================================================

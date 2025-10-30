@@ -30,7 +30,7 @@ public class devHelperAccountCreation {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         Faker faker = new Faker();
@@ -62,7 +62,7 @@ public class devHelperAccountCreation {
         driver.findElement(By.xpath("//label[@class='radio-DOTcheckN']")).click();
         driver.findElement(By.xpath("//select[@id='ddl1']/option[2]")).click();
         driver.findElement(By.xpath("//select[@id='HowDidYouHearAboutUsSelectedID']/option[8]")).click();
-        driver.findElement(By.xpath("//div[12]/div/fieldset/ul/li[1]/label")).click();
+        driver.findElement(By.xpath("//input[@id='IsWillingBackgroundCheck']/..")).click();
         driver.findElement(By.xpath("//input[@id='IndependentProvider']/..")).click();
 
         TakesScreenshot ts = (TakesScreenshot) driver;

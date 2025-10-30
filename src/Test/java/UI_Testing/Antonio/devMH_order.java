@@ -107,7 +107,7 @@ public class devMH_order {
         //========================================================>> Screenshot <<=====================================================================
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "target/screenshot_" + today + ".png";
+        String screenshotPath = "target/new_Order_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
         System.out.println("Screenshot in target folder");
 

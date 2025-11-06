@@ -12,7 +12,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -39,7 +38,7 @@ public class devHelperAccountCreation {
 
         driver.navigate().to(ConfigReader.getProperty("devProviderRegister"));
 
-                                  //Application Page1
+                                            //Sign Up page
         driver.findElement(By.xpath("//*[@id='FirstName']")).sendKeys(faker.name().firstName());
         driver.findElement(By.xpath("//*[@id='LastName']")).sendKeys(faker.name().lastName());
         driver.findElement(By.xpath("//*[@id='Email']")).sendKeys(faker.internet().emailAddress());
@@ -52,7 +51,8 @@ public class devHelperAccountCreation {
         driver.findElement(By.xpath("//*[@id='TermsOfServiceAgreement']")).click();
         driver.findElement(By.xpath("//*[@id='register-button']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div['row']/h2[.='Tell Us About Yourself']")));
-        //BrowserUtils.sleep(4);
+
+                                            //Application Page1
         driver.findElement(By.xpath("//*[@id='Address']")).sendKeys("2727 N Central ave");
         driver.findElement(By.xpath("//*[@id='City']")).sendKeys("Phoenix");
         driver.findElement(By.xpath("//*[@id='Zip']")).sendKeys("85004");
@@ -74,7 +74,7 @@ public class devHelperAccountCreation {
 
         driver.findElement(By.xpath("//button[.='Next']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[.='Photo and Document Uploads']")));
-        System.out.println("Application Page1 - passes");
+                System.out.println("Application Page1 - passes");
 
                                   //Application Page2
 

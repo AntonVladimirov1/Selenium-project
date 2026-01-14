@@ -57,7 +57,7 @@ public class devHelperAccountCreation {
         driver.findElement(By.xpath("//*[@id='City']")).sendKeys("Phoenix");
         driver.findElement(By.xpath("//*[@id='Zip']")).sendKeys("85004");
         driver.findElement(By.xpath("//select[@id='State']/option[4]")).click();
-        driver.findElement(By.xpath("//*[@id='BusinessName']")).sendKeys("Best of the best");
+        driver.findElement(By.xpath("//*[@id='BusinessName']")).sendKeys("Best of the Best");
         driver.findElement(By.xpath("//*[@id='businessdescriptionrte']")).sendKeys("Best of Antonio - this is automation created account");
         driver.findElement(By.xpath("//label[@class='radio-DOTcheckN']")).click();
         driver.findElement(By.xpath("//select[@id='ddl1']/option[2]")).click();

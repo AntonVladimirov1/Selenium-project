@@ -38,7 +38,7 @@ public class devMH_order {
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
         WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));        // declare "wait" variable
 
@@ -46,14 +46,13 @@ public class devMH_order {
         devMHLoginPage.login(driver);                                                                                                         //Login page
 
         BrowserUtils.sleep(3);
-
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
         //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
-        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                      //Current date
+        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click(); //<- " + currentDate + "                       //Current date
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");    //Time
         driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                         //wait
@@ -64,11 +63,11 @@ public class devMH_order {
         //=============================================>> Safeload option <<================================================================================
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
-        //driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                        //SafeLoad checkmark
-        //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
+        driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                        //SafeLoad checkmark
+        driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
         // ============================================>> Service type select <<============================================================================
-        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                                 // Load/Unload (click if need to cancel)
+        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                            // Load/Unload (click if need to cancel)
         //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
         //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
         //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
@@ -91,7 +90,7 @@ public class devMH_order {
         // =====================================================>> Payment CC <<=============================================================================
         driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));           //Card num
         driver.findElement(By.xpath("//*[@id='ExpirationMonth']")).sendKeys("12");                                   //Card
-        driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2025");                                  //Card
+        driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2027");                                  //Card
         driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));                //Card CSC
 
         // =====================================================>> Other Info Input <<=======================================================================
@@ -125,7 +124,6 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='jobdetailsID']/a/h3/span[2]/text()='" + jobNumber + "')).click();
         //*[@id="primary"]/ul/li[2]/div/ul/li[1]/a
         //*[@id="primary"]/ul/li[2]/div[2]/ul/li[1]/a
-        //*[@id='dynatraceJobNumber'][.='JB-3b6e7285']
         //*[@id="jobdetailsID"]/a/h3/span[2]/text()='Job Number: JB-3b6e7285'
         //html/body/div[3]/section/div[3]/div/div/table/tbody/tr[1]/td[3]/text()
         //html/body/div[3]/section/div[3]/div/div/table/tbody/tr[1]/td[3]/label

@@ -40,7 +40,7 @@ public class devMH_order {
         WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
         //driver.manage().window().maximize();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));        // declare "wait" variable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
 
         // ==========================================>> LogIn <<==========================================================================================
         devMHLoginPage.login(driver);                                                                                                         //Login page
@@ -116,6 +116,7 @@ public class devMH_order {
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
         System.out.println(jobNumber);
         System.out.println(orderNumber);
+        BrowserUtils.sleep(5);
 
         //=====================================================>> Find Scheduled Job (recently created)<<=====================================================
        /* driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                 //My Jobs

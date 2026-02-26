@@ -74,7 +74,7 @@ public class devHelperAccountCreation {
 
         driver.findElement(By.xpath("//button[.='Next']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[.='Photo and Document Uploads']")));
-                System.out.println("Application Page1 - passes");
+        System.out.println("Application Page1 - passes");
 
                                   //Application Page2
 

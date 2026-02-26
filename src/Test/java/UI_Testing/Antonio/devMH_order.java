@@ -58,13 +58,13 @@ public class devMH_order {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                         //wait
 
         // ============================================>> Provider select <<================================================================================
-        driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                      //Provider select
+        driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                        //Provider select
 
         //=============================================>> Safeload option <<================================================================================
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
         driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
-        driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                        //SafeLoad checkmark
-        driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
+        //driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                        //SafeLoad checkmark
+        //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
         // ============================================>> Service type select <<============================================================================
         //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                            // Load/Unload (click if need to cancel)

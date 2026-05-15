@@ -38,14 +38,16 @@ public class devMH_order {
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
         WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
-        //driver.manage().window().maximize();
+        driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
 
         // ==========================================>> LogIn <<==========================================================================================
         devMHLoginPage.login(driver);                                                                                                         //Login page
 
-        BrowserUtils.sleep(3);
+        String expectedTitle = "Current Jobs";
+        wait.until(ExpectedConditions.titleContains(expectedTitle));
+
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
         //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
@@ -100,6 +102,7 @@ public class devMH_order {
 
         //====================================================>> Confirm Order <<=============================================================================
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")));
         driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                        //Confirmation Modal close
 

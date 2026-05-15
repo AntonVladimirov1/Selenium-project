@@ -29,7 +29,7 @@ public class devHelperAccountCreation {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         Faker faker = new Faker();
@@ -65,16 +65,17 @@ public class devHelperAccountCreation {
         driver.findElement(By.xpath("//input[@id='IsWillingBackgroundCheck']/..")).click();
         driver.findElement(By.xpath("//input[@id='IndependentProvider']/..")).click();
 
-       /* TakesScreenshot ts = (TakesScreenshot) driver;
+        TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "target/new_Provider_" + today + ".png";
+        String screenshotPath = "target/new_Provider1_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot in target folder");
-        */
+        System.out.println("Screenshot 1 in target folder");
+
 
         driver.findElement(By.xpath("//button[.='Next']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[.='Photo and Document Uploads']")));
         System.out.println("Application Page1 - passes");
+
 
                                   //Application Page2
 

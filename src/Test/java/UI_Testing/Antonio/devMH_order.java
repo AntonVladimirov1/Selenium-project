@@ -71,7 +71,7 @@ public class devMH_order {
         //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
 
         // ============================================>> Service type select <<============================================================================
-        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                            // Load/Unload (click if need to cancel)
+        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                        // Load/Unload (click if need to cancel)
         //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
         //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
         //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
@@ -99,23 +99,23 @@ public class devMH_order {
 
         // =====================================================>> Other Info Input <<=======================================================================
         driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                      //Contact method
-        driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[1]//..")).click();                               //Text message "YES"
+        driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[1]//..")).click();                             //Text message "YES"
         driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                               //CheckBox Terms
 
         //====================================================>> Confirm Order <<=============================================================================
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")));
-        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                        //Confirmation Modal close
+        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                  //Confirmation Modal close
 
-        //========================================================>> Screenshot <<=====================================================================
+        //========================================================>> Screenshot <<===========================================================================
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/new_Order_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
         System.out.println("Screenshot in target folder");
 
-        //====================================================>> Pull Job/Order number <<================================================================
+        //====================================================>> Pull Job/Order number <<====================================================================
         // driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
         jobNumber = driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText();
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();

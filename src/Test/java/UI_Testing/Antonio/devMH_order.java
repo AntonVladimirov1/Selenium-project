@@ -43,24 +43,26 @@ public class devMH_order {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
 
         // ==========================================>> LogIn <<==========================================================================================
-        devMHLoginPage.login(driver);                                                                                                         //Login page
+        devMHLoginPage.login(driver);                                                                                                    //Login page
 
         String expectedTitle = "Current Jobs";
         wait.until(ExpectedConditions.titleContains(expectedTitle));
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
-        driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                       //Home button
+        driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                 //Home button
         //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click(); //<- " + currentDate + "                       //Current date
-        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");    //Time
-        driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search
+        //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");     //Time old
+        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime']")).sendKeys("Evening");          //Time (new)
+        //driver.findElement(By.xpath("//button[.='Search']")).click();    //Search old
+        driver.findElement(By.xpath("//*[@id='findHelpersButton']")).click();                                                  //Search (new)
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                         //wait
 
         // ============================================>> Provider select <<================================================================================
-        driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                        //Provider select
+        driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                  //Provider select
 
         //=============================================>> Safeload option <<================================================================================
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait

@@ -29,7 +29,7 @@ public class devHelperAccountCreation {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         Faker faker = new Faker();

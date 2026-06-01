@@ -37,7 +37,7 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
@@ -55,9 +55,9 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click(); //                 //Current date
-        //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");     //Time old
-        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime']")).sendKeys("Evening");          //Time (new)
-        //driver.findElement(By.xpath("//button[.='Search']")).click();    //Search old
+        //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");               //Time old
+        driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime']")).sendKeys("Afternoon");          //Time (new)
+        //driver.findElement(By.xpath("//button[.='Search']")).click();                                                        //Search old
         driver.findElement(By.xpath("//*[@id='findHelpersButton']")).click();                                                  //Search (new)
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                         //wait
 
@@ -121,21 +121,16 @@ public class devMH_order {
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
         System.out.println(jobNumber);
         System.out.println(orderNumber);
-        BrowserUtils.sleep(5);
+        //BrowserUtils.sleep(5);
 
         //=====================================================>> Find Scheduled Job (recently created)<<=====================================================
-       /* driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                 //My Jobs
-
-        //*[@id="jobdetailsID"]/a/h3/span[2]/text()
-        driver.findElement(By.xpath("//*[@id='jobdetailsID']/a/h3/span[2]/text()='" + jobNumber + "')).click();
-        //*[@id="primary"]/ul/li[2]/div/ul/li[1]/a
-        //*[@id="primary"]/ul/li[2]/div[2]/ul/li[1]/a
-        //*[@id="jobdetailsID"]/a/h3/span[2]/text()='Job Number: JB-3b6e7285'
-        //html/body/div[3]/section/div[3]/div/div/table/tbody/tr[1]/td[3]/text()
-        //html/body/div[3]/section/div[3]/div/div/table/tbody/tr[1]/td[3]/label
-
+        String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                     //Convert to lowercase and remove prefix
+        driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                                    //My Jobs
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
+        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                          //Select Job
+        BrowserUtils.sleep(5);
         //=======================================================>> Add Hours <<===================================================================
-        driver.findElement(By.xpath("//a[text()='Edit']")).click();
+        /*driver.findElement(By.xpath("//a[text()='Edit']")).click();
         driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();
         driver.findElement(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")).click();
 

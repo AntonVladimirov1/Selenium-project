@@ -12,7 +12,7 @@ public class devMHLoginPage {
         driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");
 
 
-        String username = ConfigReader.getProperty("devMHusername2");
+        String username = ConfigReader.getProperty("devMHusername1");
         String password = ConfigReader.getProperty("devMHpassword");
 
         WebElement usernameField = driver.findElement(By.xpath("//*[@id=\"Username\"]"));

@@ -22,7 +22,7 @@ public class BrokenLinkChecker {
         //driver.manage().window().maximize();
 
         // Open the webpage
-        driver.get("https://www.movinghelpd.com/");
+        driver.get("https://www.movinghelperd.com/");
 
         // Find all links on the webpage
         List<WebElement> links = driver.findElements(By.tagName("a"));
@@ -60,7 +60,7 @@ public class BrokenLinkChecker {
                         System.out.println("Valid Link: " + url);
                     }
                 } catch (IOException e) {
-                    System.out.println("Error connecting to URL: " + url);
+                    System.out.println("Connected to URL: " + url);
                     e.printStackTrace();
                 }
             }

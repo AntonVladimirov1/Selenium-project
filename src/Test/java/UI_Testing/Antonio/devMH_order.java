@@ -24,6 +24,7 @@ public class devMH_order {
     public static String currentDate;
     public static String jobNumber;
     public static String orderNumber;
+    public static String jobNumberLower;
 
 
     public static void main(String[] args) throws IOException {
@@ -123,18 +124,31 @@ public class devMH_order {
         System.out.println(orderNumber);
         //BrowserUtils.sleep(5);
 
-        //=====================================================>> Find Scheduled Job (recently created)<<=====================================================
-        String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                     //Convert to lowercase and remove prefix
+        //====================================>> Find Scheduled Job (recently created)<<=Edit/hours/Payment=================================================
+         //String jobNumberLower = "1ea54dfa";
+        jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                     //Convert to lowercase and remove prefix
         driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                                    //My Jobs
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
         driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                          //Select Job
-        BrowserUtils.sleep(5);
+        BrowserUtils.sleep(3);
         //=======================================================>> Add Hours <<===================================================================
-        /*driver.findElement(By.xpath("//a[text()='Edit']")).click();
-        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();
-        driver.findElement(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")).click();
+        driver.findElement(By.xpath("//a[text()='Edit']")).click();                                         //Edit Job
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));       // common wait
+        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                // adding one hour only (want more - need additional script)
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));      // common wait
+        driver.findElement(By.xpath("//*[@id='form2']/button")).click();
+        BrowserUtils.sleep(3);
 
-        */
+        //=======================================================>> Cancellation <<===================================================================
+        driver.navigate().to("https://www.movinghelpd.com/jobs");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
+        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                          //Select Job
+        BrowserUtils.sleep(3);
+        driver.findElement(By.xpath("//a[text()='Cancel']")).click();                                                       //Cancel
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='CancellationCause']")));                // common wait
+        driver.findElement(By.xpath("//*[@id='CancellationCause']")).sendKeys("I am no longer moving.");        //Reason
+        driver.findElement(By.xpath("//button[.='Confirm Cancellation']")).click();                                                       //Submit
+
 
         //=======================================================>> Closing Browser <<====================================================================
         driver.quit();

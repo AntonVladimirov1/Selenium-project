@@ -107,7 +107,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")));
-        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                  //Confirmation Modal close
+        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                    //Confirmation Modal close
 
         //========================================================>> Screenshot <<===========================================================================
         TakesScreenshot ts = (TakesScreenshot) driver;
@@ -126,12 +126,13 @@ public class devMH_order {
 
         //====================================>> Find Scheduled Job (recently created)<<=Edit/hours/Payment=================================================
          //String jobNumberLower = "1ea54dfa";
-        jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                     //Convert to lowercase and remove prefix
+        jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                               //Convert to lowercase and remove prefix
         driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                                    //My Jobs
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
-        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                          //Select Job
-        BrowserUtils.sleep(3);
+        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                        //Select Job
+
         //=======================================================>> Add Hours <<===================================================================
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Edit']")));
         driver.findElement(By.xpath("//a[text()='Edit']")).click();                                         //Edit Job
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));       // common wait
         driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                // adding one hour only (want more - need additional script)
@@ -142,12 +143,12 @@ public class devMH_order {
         //=======================================================>> Cancellation <<===================================================================
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
-        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                          //Select Job
-        BrowserUtils.sleep(3);
+        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();             //Select Job
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Cancel']")));
         driver.findElement(By.xpath("//a[text()='Cancel']")).click();                                                       //Cancel
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='CancellationCause']")));                // common wait
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='CancellationCause']")));                //common wait
         driver.findElement(By.xpath("//*[@id='CancellationCause']")).sendKeys("I am no longer moving.");        //Reason
-        driver.findElement(By.xpath("//button[.='Confirm Cancellation']")).click();                                                       //Submit
+        driver.findElement(By.xpath("//button[.='Confirm Cancellation']")).click();                                                //Submit
 
 
         //=======================================================>> Closing Browser <<====================================================================

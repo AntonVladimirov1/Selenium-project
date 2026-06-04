@@ -1,7 +1,6 @@
 package UI_Testing.Antonio;
 
 import UI_Testing.Utilities.BrowserUtils;
-import UI_Testing.Utilities.CRM_Login;
 import UI_Testing.Utilities.ConfigReader;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -24,7 +23,7 @@ public class devMH_order {
     public static String currentDate;
     public static String jobNumber;
     public static String orderNumber;
-    public static String jobNumberLower;
+    //public static String jobNumberLower;
 
 
     public static void main(String[] args) throws IOException {
@@ -44,14 +43,11 @@ public class devMH_order {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
 
         // ==========================================>> LogIn <<==========================================================================================
-        devMHLoginPage.login(driver);                                                                                                    //Login page
-
-        String expectedTitle = "Current Jobs";
-        wait.until(ExpectedConditions.titleContains(expectedTitle));
+        devMHPageMethods.login(driver);                                                                                                    //Login page
+        wait.until(ExpectedConditions.titleContains("Current Jobs"));
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                 //Home button
-        //driver.findElement(By.xpath("//div[@class='show-for-desktop sticky-container']//a[text()='Home']")).click();
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
@@ -66,57 +62,30 @@ public class devMH_order {
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                  //Provider select
 
         //=============================================>> Safeload option <<================================================================================
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
-        driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                          //SafeLoad modal close
-        //driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                        //SafeLoad checkmark
-        //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
+        devMHPageMethods.safeload(driver);
 
         // ============================================>> Service type select <<============================================================================
-        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                        // Load/Unload (click if need to cancel)
-        //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
-        //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
-        //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
-        //driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe
+        devMHPageMethods.serviceType(driver);
 
-        // ===============================================>> Details and Cart <<============================================================================
-        driver.findElement(By.xpath("//*[@id='DetailsOfMove']")).sendKeys("dfgdfgdfg");                            //Details
-        driver.findElement(By.xpath("//*[@id='submitButton']")).click();                                                       //Add to Cart
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")));  //Wait
-        driver.findElement(By.xpath("//div[@id='successModal']//div//a[.='View Cart']")).click();                                //View Cart
+        // ===================================================>> Add/View Cart <<=========================================================================
+        devMHPageMethods.addViewCart(driver);
 
-        // ==================================================>> Discount Employee <<=========================================================================
-        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys(ConfigReader.getProperty("discountEmployee"));    //Employee discount
-        //driver.findElement(By.xpath("//button[.='Apply']")).click();
+        // ====================================================>> Discount Employee <<=====================================================================
+        devMHPageMethods.discountEmployee(driver);
 
-        // ====================================================>> Payment Cert <<============================================================================
-        //driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("certVIP"));                //Cert num
-        //driver.findElement(By.xpath("//button[.='Apply']")).click();                                                             //Apply
+        // =====================================================>> Cert Info <<============================================================================
+        devMHPageMethods.infoCertificate(driver);
 
-        // =====================================================>> Payment CC <<=============================================================================
-        driver.findElement(By.xpath("//input[@name='CreditCardNumber']")).sendKeys(ConfigReader.getProperty("devCC"));           //Card num
-        driver.findElement(By.xpath("//*[@id='ExpirationMonth']")).sendKeys("12");                                   //Card
-        driver.findElement(By.xpath("//*[@id='ExpirationYear']")).sendKeys("2027");                                  //Card
-        driver.findElement(By.xpath("//*[@id='CardSecurityCode']")).sendKeys(ConfigReader.getProperty("devCSC"));                //Card CSC
+        // =====================================================>> CC Info <<==============================================================================
+        devMHPageMethods.infoCC(driver);
 
-        // =====================================================>> Other Info Input <<=======================================================================
-        driver.findElement(By.xpath("//*[@id='PreferredContactMethod']")).sendKeys("Email");                      //Contact method
-        driver.findElement(By.xpath("(//input[@id='SendTextMessageUpdates'])[1]//..")).click();                             //Text message "YES"
-        driver.findElement(By.xpath("(//input[@id='Agreement'])//..")).click();                                               //CheckBox Terms
+        // =====================================================>> Payment Submit <<=======================================================================
+        devMHPageMethods.paymentSubmit(driver);
 
-        //====================================================>> Confirm Order <<=============================================================================
-        driver.findElement(By.xpath("//button[@class='button submit-button']")).click();                                        //Submit
+        //======================================================>> Screenshot <<===========================================================================
+        devMHPageMethods.screenShot(driver);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")));
-        driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                    //Confirmation Modal close
-
-        //========================================================>> Screenshot <<===========================================================================
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "target/new_Order_" + today + ".png";
-        FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot in target folder");
-
-        //====================================================>> Pull Job/Order number <<====================================================================
+        //====================================================>> Pull Job/Order number <<==================================================================
         // driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();
         jobNumber = driver.findElement(By.xpath("//table/tbody/tr[1]/td[3]")).getText();
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
@@ -124,34 +93,51 @@ public class devMH_order {
         System.out.println(orderNumber);
         //BrowserUtils.sleep(5);
 
-        //====================================>> Find Scheduled Job (recently created)<<=Edit/hours/Payment=================================================
-         //String jobNumberLower = "1ea54dfa";
-        jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                               //Convert to lowercase and remove prefix
+        //====================================>> Find Scheduled Job (recently created)========================================================================
+         //String jobNumberSpecific = "1ea54dfa";
+        String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                        //Convert to lowercase and remove prefix
+        String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");
         driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                                    //My Jobs
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
         driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                        //Select Job
 
-        //=======================================================>> Add Hours <<===================================================================
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Edit']")));
-        driver.findElement(By.xpath("//a[text()='Edit']")).click();                                         //Edit Job
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));       // common wait
-        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                // adding one hour only (want more - need additional script)
+        //=========================================================>> Edit > Add Hours <<=======================================================================
+        /*wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
+        driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();                   //Edit Job
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));                        // common wait
+        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                           // adding one hour only (want more - need additional script)
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));      // common wait
         driver.findElement(By.xpath("//*[@id='form2']/button")).click();
+        System.out.println("Additional hours added");
         BrowserUtils.sleep(3);
+     */
 
-        //=======================================================>> Cancellation <<===================================================================
+        //=======================================================>> Cancellation <<===========================================================================
+        devMHPageMethods.cancellation(driver);
+
+        //=======================================================>> Pay Helper <<==============================================================================
+       /* String jobNumberSpecific = "80c4030a";
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
-        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();             //Select Job
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='Cancel']")));
-        driver.findElement(By.xpath("//a[text()='Cancel']")).click();                                                       //Cancel
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='CancellationCause']")));                //common wait
-        driver.findElement(By.xpath("//*[@id='CancellationCause']")).sendKeys("I am no longer moving.");        //Reason
-        driver.findElement(By.xpath("//button[.='Confirm Cancellation']")).click();                                                //Submit
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]"))); //Wait
+        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]")).click();             //Select Job
+        driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button info fullWidth pay-job-modal-button')])[1])[1]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")));
+        driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")).click();
+        wait.until(ExpectedConditions.titleContains("Review"));      //Wait
+        System.out.println("Job Completed");
 
+        //========================================================>> Review <<================================================================================
+        driver.findElement(By.xpath("//*[@id='OutstandingCommunications']/..")).click();
+        driver.findElement(By.xpath("//*[@id='OutstandingProfessionalism']/..")).click();
+        driver.findElement(By.xpath("//*[@id='OutstandingServices']/..")).click();
+        driver.findElement(By.xpath("//*[@id='OutstandingOverall']/..")).click();
+        //=========================================================>> Tips <<=================================================================================
+                                                    //??????????????????
+        driver.findElement(By.xpath("//button[.='Submit']")).click();
+        System.out.println("Review Submitted");
+*/
 
-        //=======================================================>> Closing Browser <<====================================================================
+        //=======================================================>> Closing Browser <<========================================================================
         driver.quit();
 
     }

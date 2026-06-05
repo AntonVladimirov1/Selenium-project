@@ -98,7 +98,7 @@ public class devMHPageMethods {
     public static void editAddHours (WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
-        String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
+        //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
@@ -107,7 +107,7 @@ public class devMHPageMethods {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
         driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();           //Edit Job
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));                // common wait
-        driver.findElement(By.xpath("//select[@id='addHours']/option[2]")).click();                                // Add 2 hours (option up to 22)
+        driver.findElement(By.xpath("//select[@id='addHours']/option[1]")).click();                                // Add 2 hours (option up to 22)
         driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                                               // Confirm changes
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
         driver.findElement(By.xpath("//*[@id='form2']/button")).click();
@@ -118,7 +118,7 @@ public class devMHPageMethods {
     public static void editAddHelpers (WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
-        String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
+        //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
@@ -128,7 +128,7 @@ public class devMHPageMethods {
         driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();           //Edit Job
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));                // common wait
         driver.findElement(By.xpath("//select[@id='addHelpersCount']/option[2]")).click();                                // Add 2 hours (option up to 22)
-        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                                               // Confirm changes
+        driver.findElement(By.xpath("//*[@id='add-helpers-button']")).click();                                               // Confirm changes
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
         driver.findElement(By.xpath("//*[@id='form2']/button")).click();
         System.out.println("Additional helper added");

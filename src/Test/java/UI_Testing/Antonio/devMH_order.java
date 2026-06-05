@@ -44,9 +44,9 @@ public class devMH_order {
 
         // ==========================================>> LogIn <<==========================================================================================
         devMHPageMethods.login(driver);                                                                                                    //Login page
-        wait.until(ExpectedConditions.titleContains("Current Jobs"));
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
+        wait.until(ExpectedConditions.titleContains("Current Jobs"));
         driver.navigate().to(ConfigReader.getProperty("devMHhomeURL"));                                                                 //Home button
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
@@ -95,22 +95,14 @@ public class devMH_order {
 
         //====================================>> Find Scheduled Job (recently created)========================================================================
          //String jobNumberSpecific = "1ea54dfa";
-        String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");                        //Convert to lowercase and remove prefix
-        String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");
-        driver.navigate().to("https://www.movinghelpd.com/jobs");                                                                                    //My Jobs
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
-        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();                        //Select Job
+        //String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");            //Convert to lowercase and remove prefix
+        //String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");                   //Convert to lowercase and remove prefix
 
         //=========================================================>> Edit > Add Hours <<=======================================================================
-        /*wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
-        driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();                   //Edit Job
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));                        // common wait
-        driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                           // adding one hour only (want more - need additional script)
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));      // common wait
-        driver.findElement(By.xpath("//*[@id='form2']/button")).click();
-        System.out.println("Additional hours added");
-        BrowserUtils.sleep(3);
-     */
+        devMHPageMethods.editAddHours(driver);
+
+        //=========================================================>> Edit > Add Helpers <<=======================================================================
+        devMHPageMethods.editAddHelpers(driver);
 
         //=======================================================>> Cancellation <<===========================================================================
         devMHPageMethods.cancellation(driver);
@@ -128,11 +120,12 @@ public class devMH_order {
 
         //========================================================>> Review <<================================================================================
         driver.findElement(By.xpath("//*[@id='OutstandingCommunications']/..")).click();
-        driver.findElement(By.xpath("//*[@id='OutstandingProfessionalism']/..")).click();
+        driver.findElement(By.xpath("//*[@id='OutstandingProfessionalism']/..")).click();                 // ALL 5 STARS
         driver.findElement(By.xpath("//*[@id='OutstandingServices']/..")).click();
         driver.findElement(By.xpath("//*[@id='OutstandingOverall']/..")).click();
         //=========================================================>> Tips <<=================================================================================
-                                                    //??????????????????
+                                                    ??????????????????
+        //========================================================>> Submit Review <<================================================================================
         driver.findElement(By.xpath("//button[.='Submit']")).click();
         System.out.println("Review Submitted");
 */

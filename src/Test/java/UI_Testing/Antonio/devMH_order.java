@@ -37,7 +37,7 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
@@ -52,13 +52,14 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
         driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click(); //                 //Current date
-        //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");               //Time old
+        //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");                  //Time old
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime']")).sendKeys("Afternoon");          //Time (new)
-        //driver.findElement(By.xpath("//button[.='Search']")).click();                                                        //Search old
+        //driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search old
         driver.findElement(By.xpath("//*[@id='findHelpersButton']")).click();                                                  //Search (new)
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                         //wait
+
 
         // ============================================>> Provider select <<================================================================================
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                   //wait
         driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                  //Provider select
 
         //=============================================>> Safeload option <<================================================================================
@@ -105,7 +106,7 @@ public class devMH_order {
         devMHPageMethods.editAddHelpers(driver);
 
         //=======================================================>> Cancellation <<===========================================================================
-        //devMHPageMethods.cancellation(driver);
+        devMHPageMethods.cancellation(driver);
 
         //=======================================================>> Pay Helper <<==============================================================================
        /* String jobNumberSpecific = "80c4030a";

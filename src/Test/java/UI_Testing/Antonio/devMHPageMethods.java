@@ -101,8 +101,10 @@ public class devMHPageMethods {
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
-        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();             //Select Job
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" +jobNumberLower+ "')]]"))); //Wait
+        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'"+ jobNumberLower +"')]]")).click();               //Select Job
+        //driver.findElement(By.xpath("//h3[.//span[contains(normalize-space(.),'"+ jobNumberLower +"')]]")).click();
+        //driver.findElement(By.xpath("//*[@id='jobdetailsID'][.//span[contains(normalize-space(.),'"+jobNumberLower+"')]]")).click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
         driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();           //Edit Job
@@ -112,7 +114,7 @@ public class devMHPageMethods {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
         driver.findElement(By.xpath("//*[@id='form2']/button")).click();
         System.out.println("Additional hours added");
-        BrowserUtils.sleep(2);
+        BrowserUtils.sleep(3);
     }
 
     public static void editAddHelpers (WebDriver driver){
@@ -121,7 +123,7 @@ public class devMHPageMethods {
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'"+ jobNumberLower +"')]]"))); //Wait
         driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();             //Select Job
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
@@ -141,7 +143,7 @@ public class devMHPageMethods {
         String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]"))); //Wait
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'"+ jobNumberLower +"')]]"))); //Wait
         driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]")).click();             //Select Job
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + orderNumberLower + "') and text()='Cancel']")));

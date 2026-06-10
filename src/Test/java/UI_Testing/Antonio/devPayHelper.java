@@ -21,17 +21,20 @@ public class devPayHelper {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  // <<<<<  declare "wait" variable
 
         // ==========================================>> LogIn <<==========================================================================================
         devMHPageMethods.login(driver);
         wait.until(ExpectedConditions.titleContains("Current Jobs"));
 
         //=======================================================>> Pay Helper <<==============================================================================
-        String jobNumberSpecific = "744dc865";
+
+        //a[contains(@href,'f2e7ccf5') and text()='Pay Helper'] - its on https://uhauld.net/tools/movinghelp/Order/order_detail.aspx?
+
+        String jobNumberSpecific = "bbc49435";
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]"))); //Wait
         driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]")).click();             //Select Job

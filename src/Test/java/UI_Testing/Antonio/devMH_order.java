@@ -40,7 +40,7 @@ public class devMH_order {
         WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  // <<<<<  declare "wait" variable
 
         // ==========================================>> LogIn <<==========================================================================================
         devMHPageMethods.login(driver);                                                                                                    //Login page

@@ -16,10 +16,10 @@ import java.time.LocalDate;
 
 public class devMHPageMethods {
 
-    public static void login(WebDriver driver) {
+    public static void loginMH(WebDriver driver) {
         driver.get(ConfigReader.getProperty("devMHhomeURL")+"login");
 
-        String username = ConfigReader.getProperty("devMHusername1");
+        String username = ConfigReader.getProperty("devMHcustomer1");
         String password = ConfigReader.getProperty("devMHpassword");
 
         WebElement usernameField = driver.findElement(By.xpath("//*[@id='Username']"));
@@ -32,13 +32,19 @@ public class devMHPageMethods {
     }
 
     public static void safeload (WebDriver driver){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));        // short timeout — skip if not shown
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));
+            driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();  //SafeLoad modal close
+            System.out.println("SafeLoad modal closed");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));   //Wait
-        driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();                                  //SafeLoad modal close
+            driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                    //SafeLoad checkmark
+            driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click(); //SafeLoad option2
+            System.out.println("SafeLoad applied");
 
-        //driver.findElement(By.xpath("//input[@id='LoadUnload_Safeload_Enabled']/../span")).click();                        //SafeLoad checkmark
-        //driver.findElement(By.xpath("//select[@id='LoadUnload_Safeload_SelectedInsuranceRateId']/option[2]")).click();     //SafeLoad option2
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("SafeLoad not supported by this provider — skipping");     // provider doesn't show modal (not eligible)
+        }
     }
 
     public static void serviceType (WebDriver driver){
@@ -102,48 +108,53 @@ public class devMHPageMethods {
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        BrowserUtils.sleep(2);  //Wait for page to fully load
+        BrowserUtils.sleep(3);  //Wait for page to fully load
         By jobLink = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
         wait.until(ExpectedConditions.elementToBeClickable(jobLink));                                                    //Wait until clickable
         WebElement jobEl = driver.findElement(jobLink);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", jobEl);           //Scroll into view
         BrowserUtils.sleep(1);  //Wait after scroll
         new Actions(driver).moveToElement(jobEl).click().perform();  //Use Actions for reliable click
+        BrowserUtils.sleep(3);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
         driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();           //Edit Job
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));                // common wait
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='add-hours-button']")));                // common wait
         driver.findElement(By.xpath("//select[@id='addHours']/option[1]")).click();                                // Add 2 hours (option up to 22)
         driver.findElement(By.xpath("//*[@id='add-hours-button']")).click();                                               // Confirm changes
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
         driver.findElement(By.xpath("//*[@id='form2']/button")).click();
         System.out.println("Additional hours added");
-        BrowserUtils.sleep(3);
+        //BrowserUtils.sleep(3);
+        //driver.navigate().to("https://www.movinghelpd.com/jobs");
     }
 
     public static void editAddHelpers (WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
-
+        BrowserUtils.sleep(3);
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        BrowserUtils.sleep(2);  //Wait for page to fully load
+        BrowserUtils.sleep(3);  //Wait for page to fully load
         By jobLink2 = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
         wait.until(ExpectedConditions.elementToBeClickable(jobLink2));                                                   //Wait until clickable
         WebElement jobEl2 = driver.findElement(jobLink2);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", jobEl2);          //Scroll into view
         BrowserUtils.sleep(1);  //Wait after scroll
         new Actions(driver).moveToElement(jobEl2).click().perform();  //Use Actions for reliable click
+        BrowserUtils.sleep(3);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")));
         driver.findElement(By.xpath("//a[contains(@href,'" + jobNumberLower + "') and text()='Edit']")).click();           //Edit Job
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='add-hours-button']")));                // common wait
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='add-hours-button']")));                // common wait
         driver.findElement(By.xpath("//select[@id='addHelpersCount']/option[2]")).click();                                // Add 2 hours (option up to 22)
         driver.findElement(By.xpath("//*[@id='add-helpers-button']")).click();                                               // Confirm changes
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
         driver.findElement(By.xpath("//*[@id='form2']/button")).click();
         System.out.println("Additional helper added");
         BrowserUtils.sleep(2);
+        driver.navigate().to("https://www.movinghelpd.com/jobs");
+        BrowserUtils.sleep(3);  //Wait for page to fully load
     }
 
     public static void cancellation (WebDriver driver) {
@@ -152,7 +163,8 @@ public class devMHPageMethods {
         String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         driver.navigate().to("https://www.movinghelpd.com/jobs");
-        BrowserUtils.sleep(2);  //Wait for page to fully load
+        //BrowserUtils.sleep(3);  //Wait for page to fully load
+        wait.until(ExpectedConditions.titleContains("Current Jobs"));
         By jobLink3 = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
         wait.until(ExpectedConditions.elementToBeClickable(jobLink3));                                                   //Wait until clickable
         WebElement jobEl3 = driver.findElement(jobLink3);
@@ -160,9 +172,9 @@ public class devMHPageMethods {
         BrowserUtils.sleep(1);  //Wait after scroll
         new Actions(driver).moveToElement(jobEl3).click().perform();  //Use Actions for reliable click
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@href,'" + orderNumberLower + "') and text()='Cancel']")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href,'" + orderNumberLower + "') and text()='Cancel']")));
         driver.findElement(By.xpath("//a[contains(@href,'" + orderNumberLower + "') and text()='Cancel']")).click();         //Cancel
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='CancellationCause']")));                 //common wait
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='CancellationCause']")));                 //common wait
         driver.findElement(By.xpath("//*[@id='CancellationCause']")).sendKeys("I am no longer moving.");         //Reason
         driver.findElement(By.xpath("//button[.='Confirm Cancellation']")).click();                                          //Submit
         System.out.println("Job Cancelled");

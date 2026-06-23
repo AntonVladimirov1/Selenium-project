@@ -1,22 +1,19 @@
 package UI_Testing.Antonio;
 
-import UI_Testing.Utilities.BrowserUtils;
 import UI_Testing.Utilities.ConfigReader;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class devMH_order {
 
@@ -24,6 +21,7 @@ public class devMH_order {
     public static String jobNumber;
     public static String orderNumber;
     //public static String jobNumberLower;
+    //public static String orderNumberLower;
 
 
     public static void main(String[] args) throws IOException {
@@ -37,13 +35,13 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  // <<<<<  declare "wait" variable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
 
-        // ==========================================>> LogIn <<==========================================================================================
-        devMHPageMethods.login(driver);                                                                                                    //Login page
+        // ================================================>> LogIn <<=====================================================================================
+        devMHPageMethods.loginMH(driver);                                                                                                    //Login page
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         wait.until(ExpectedConditions.titleContains("Current Jobs"));
@@ -58,20 +56,33 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='findHelpersButton']")).click();                                                  //Search (new)
 
 
-        // ============================================>> Provider select <<================================================================================
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                   //wait
-        driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                  //Provider select
+        // =================================================>> Provider select <<===========================================================================
+        while (true) {              // since provider can be not on the first page of the search result list
 
-        //=============================================>> Safeload option <<================================================================================
+            List<WebElement> providerName = driver.findElements(By.xpath("//a[text()='TexasBest']"));
+            if (!providerName.isEmpty()) {
+                providerName.get(0).click();
+                break;}
+            WebElement next = driver.findElement(By.xpath("//a[text()='Next']"));
+            next.click();
+
+            wait.until(ExpectedConditions.stalenessOf(next));
+        }
+
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                   //wait
+        //driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                  //Provider select
+
+        //==================================================>> Safeload option <<===========================================================================
+
         devMHPageMethods.safeload(driver);
 
-        // ============================================>> Service type select <<============================================================================
+        // =================================================>> Service type select <<=======================================================================
         devMHPageMethods.serviceType(driver);
 
-        // ===================================================>> Add/View Cart <<=========================================================================
+        // =================================================>> Add/View Cart <<=============================================================================
         devMHPageMethods.addViewCart(driver);
 
-        // ====================================================>> Discount Employee <<=====================================================================
+        // ==================================================>> Discount Employee <<========================================================================
         devMHPageMethods.discountEmployee(driver);
 
         // =====================================================>> Cert Info <<============================================================================
@@ -95,20 +106,20 @@ public class devMH_order {
         //BrowserUtils.sleep(5);
 
         //====================================>> Find Scheduled Job (recently created)========================================================================
-         //String jobNumberSpecific = "1ea54dfa";
+        /*String jobNumberSpecific = "1ea54dfa";
         //String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");            //Convert to lowercase and remove prefix
         //String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");                   //Convert to lowercase and remove prefix
-
+        */
         //=========================================================>> Edit > Add Hours <<=======================================================================
         devMHPageMethods.editAddHours(driver);
 
-        //=========================================================>> Edit > Add Helpers <<=======================================================================
+        //=========================================================>> Edit > Add Helpers <<=====================================================================
         devMHPageMethods.editAddHelpers(driver);
 
-        //=======================================================>> Cancellation <<===========================================================================
+        //=========================================================>> Cancellation <<===========================================================================
         devMHPageMethods.cancellation(driver);
 
-        //=======================================================>> Pay Helper <<==============================================================================
+        //=========================================================>> Pay Helper <<=============================================================================
        /* String jobNumberSpecific = "80c4030a";
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]"))); //Wait
@@ -129,7 +140,7 @@ public class devMH_order {
         //========================================================>> Submit Review <<================================================================================
         driver.findElement(By.xpath("//button[.='Submit']")).click();
         System.out.println("Review Submitted");
-*/
+*/ // release payment to provider
 
         //=======================================================>> Closing Browser <<========================================================================
         driver.quit();

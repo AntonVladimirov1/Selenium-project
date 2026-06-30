@@ -48,11 +48,11 @@ public class devMHPageMethods {
     }
 
     public static void serviceType (WebDriver driver){
-        //driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                        // Load/Unload (click if need to cancel)
-        //driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
-        //driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
-        //driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
-        //driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe
+        driver.findElement(By.xpath("(//input[@id='LoadUnload_Enabled'])//..")).click();                 // Load/Unload (click if need to cancel)
+        driver.findElement(By.xpath("(//input[@id='PackOrUnPack_Enabled'])//..")).click();                                       // Pack/Unpack
+        driver.findElement(By.xpath("(//input[@id='MaidServicesOrHomeCleaning_Enabled'])//..")).click();                         // Cleaning
+        driver.findElement(By.xpath("(//input[@id='PianoMoving_Enabled'])//..")).click();                                        // Piano
+        driver.findElement(By.xpath("(//input[@id='SafeMoving_Enabled'])//..")).click();                                         // Gun Safe
     }
 
     public static void addViewCart (WebDriver driver){
@@ -64,13 +64,13 @@ public class devMHPageMethods {
     }
 
     public static void discountEmployee (WebDriver driver){
-        //driver.findElement(By.xpath("//*[@id=\"CertificateCode\"]")).sendKeys(ConfigReader.getProperty("discountEmployee"));    //Employee discount
-        //driver.findElement(By.xpath("//button[.='Apply']")).click();
+        driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("discountEmployee"));    //Employee discount
+        driver.findElement(By.xpath("//button[.='Apply']")).click();
     }
 
     public static void infoCertificate (WebDriver driver){
-        //driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("certVIP"));                //Cert num
-        //driver.findElement(By.xpath("//button[.='Apply']")).click();                                                             //Apply
+        driver.findElement(By.xpath("//*[@id='CertificateCode']")).sendKeys(ConfigReader.getProperty("certVIP"));                //Cert num
+        driver.findElement(By.xpath("//button[.='Apply']")).click();                                                             //Apply
     }
 
     public static void infoCC (WebDriver driver){
@@ -126,10 +126,9 @@ public class devMHPageMethods {
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='modal-payment']//button[.='Pay Now']")));   // common wait
             driver.findElement(By.xpath("//*[@id='form2']/button")).click();
             System.out.println("Additional hours added");
-            //BrowserUtils.sleep(3);
-            //driver.navigate().to("https://www.movinghelpd.com/jobs");
+
         } catch (org.openqa.selenium.TimeoutException e) {
-            System.out.println("Unable to add hours — skipping");     // provider doesn't show modal (not eligible)
+            System.out.println("Unable to add hours for some reason — skipping");
         }
     }
 
@@ -138,7 +137,7 @@ public class devMHPageMethods {
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
         try {
-            BrowserUtils.sleep(3);
+            //BrowserUtils.sleep(2);
             driver.navigate().to("https://www.movinghelpd.com/jobs");
             BrowserUtils.sleep(3);  //Wait for page to fully load
             By jobLink2 = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
@@ -158,10 +157,9 @@ public class devMHPageMethods {
             driver.findElement(By.xpath("//*[@id='form2']/button")).click();
             System.out.println("Additional helper added");
             BrowserUtils.sleep(2);
-            driver.navigate().to("https://www.movinghelpd.com/jobs");
-            BrowserUtils.sleep(3);  //Wait for page to fully load
+
         }catch (org.openqa.selenium.TimeoutException e){
-            System.out.println("Unable to add helpers — skipping");     // provider doesn't show modal (not eligible)
+            System.out.println("Unable to add helpers for some reason — skipping");
         }
     }
 

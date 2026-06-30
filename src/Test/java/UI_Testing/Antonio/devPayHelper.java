@@ -19,7 +19,7 @@ public class devPayHelper {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  // <<<<<  declare "wait" variable
@@ -32,16 +32,20 @@ public class devPayHelper {
 
         //a[contains(@href,'f2e7ccf5') and text()='Pay Helper'] - its on https://uhauld.net/tools/movinghelp/Order/order_detail.aspx?
 
-        String jobNumberSpecific = "f512f4df";
-        //driver.navigate().to("https://www.movinghelpd.com/jobs");
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]"))); //Wait
-        driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]")).click();             //Select Job
-        driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button info fullWidth pay-job-modal-button')])[1])[1]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")));
-        driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")).click();
-        wait.until(ExpectedConditions.titleContains("Review"));      //Wait
-        System.out.println("Job Completed");
+        try {
+            String jobNumberSpecific = "334aca45";
+            //driver.navigate().to("https://www.movinghelpd.com/jobs");
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]"))); //Wait
+            driver.findElement(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]")).click();             //Select Job
+            driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button info fullWidth pay-job-modal-button')])[1])[1]")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")));
+            driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")).click();
+            wait.until(ExpectedConditions.titleContains("Review"));      //Wait
+            System.out.println("Job Completed");
 
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("Unable to pay provider.(maybe issue with provider payment method)");
+        }
         //========================================================>> Review <<================================================================================
         driver.findElement(By.xpath("//*[@id='OutstandingCommunications']/..")).click();
         driver.findElement(By.xpath("//*[@id='OutstandingProfessionalism']/..")).click();            // ALL 5 STARS
@@ -53,6 +57,7 @@ public class devPayHelper {
         //========================================================>> Submit Review <<================================================================================
         driver.findElement(By.xpath("//button[.='Submit']")).click();
         System.out.println("Review Submitted");
+        BrowserUtils.sleep(3);
 
        /* BrowserUtils.sleep(2);
 

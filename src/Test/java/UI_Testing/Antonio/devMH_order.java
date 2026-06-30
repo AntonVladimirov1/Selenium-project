@@ -78,16 +78,16 @@ public class devMH_order {
         devMHPageMethods.safeload(driver);
 
         // =================================================>> Service type select <<=======================================================================
-        devMHPageMethods.serviceType(driver);
+        //devMHPageMethods.serviceType(driver);
 
         // =================================================>> Add/View Cart <<=============================================================================
         devMHPageMethods.addViewCart(driver);
 
         // ==================================================>> Discount Employee <<========================================================================
-        devMHPageMethods.discountEmployee(driver);
+        //devMHPageMethods.discountEmployee(driver);
 
         // =====================================================>> Cert Info <<============================================================================
-        devMHPageMethods.infoCertificate(driver);
+        //devMHPageMethods.infoCertificate(driver);
 
         // =====================================================>> CC Info <<==============================================================================
         devMHPageMethods.infoCC(driver);

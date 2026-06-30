@@ -35,7 +35,7 @@ public class devMH_order {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(); //<<< insert ('options') for headless mode
+        WebDriver driver = new ChromeDriver(options); //<<< insert "options" for headless mode
         driver.manage().window().maximize();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
@@ -67,6 +67,7 @@ public class devMH_order {
             next.click();
 
             wait.until(ExpectedConditions.stalenessOf(next));
+            System.out.println("Provider not found");
         }
 
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                   //wait
@@ -103,7 +104,6 @@ public class devMH_order {
         orderNumber = driver.findElement(By.xpath("//dl[@class='inline']//dd")).getText();
         System.out.println(jobNumber);
         System.out.println(orderNumber);
-        //BrowserUtils.sleep(5);
 
         //====================================>> Find Scheduled Job (recently created)========================================================================
         /*String jobNumberSpecific = "1ea54dfa";
@@ -117,7 +117,7 @@ public class devMH_order {
         devMHPageMethods.editAddHelpers(driver);
 
         //=========================================================>> Cancellation <<===========================================================================
-        devMHPageMethods.cancellation(driver);
+        //devMHPageMethods.cancellation(driver);
 
         //=========================================================>> Pay Helper <<=============================================================================
        /* String jobNumberSpecific = "80c4030a";

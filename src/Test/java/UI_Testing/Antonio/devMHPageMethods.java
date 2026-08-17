@@ -31,7 +31,14 @@ public class devMHPageMethods {
         submitButton.click();
     }
 
-    public static void safeload (WebDriver driver){
+    public static void safeloadClose (WebDriver driver){
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));        // short timeout — skip if not shown
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));
+            driver.findElement(By.xpath("//div[@id='safeloadModal']//a[@href='#']")).click();  //SafeLoad modal close
+            System.out.println("SafeLoad modal closed");
+    }
+
+    public static void safeloadAdd (WebDriver driver){
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));        // short timeout — skip if not shown
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='safeloadModal']//a[@href='#']")));
@@ -99,7 +106,7 @@ public class devMHPageMethods {
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/new_Order_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot in target folder");
+        System.out.println("Screenshot in 'target'");
     }
 
     public static void editAddHours (WebDriver driver) {
@@ -108,6 +115,7 @@ public class devMHPageMethods {
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
         try {
+            BrowserUtils.sleep(2);
             driver.navigate().to("https://www.movinghelpd.com/jobs");
             BrowserUtils.sleep(3);  //Wait for page to fully load
             By jobLink = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
@@ -130,14 +138,16 @@ public class devMHPageMethods {
         } catch (org.openqa.selenium.TimeoutException e) {
             System.out.println("Unable to add hours for some reason — skipping");
         }
+        BrowserUtils.sleep(2);
+        driver.navigate().to("https://www.movinghelpd.com/jobs");
     }
 
     public static void editAddHelpers (WebDriver driver){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
         try {
-            //BrowserUtils.sleep(2);
+            BrowserUtils.sleep(2);
             driver.navigate().to("https://www.movinghelpd.com/jobs");
             BrowserUtils.sleep(3);  //Wait for page to fully load
             By jobLink2 = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");

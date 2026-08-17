@@ -28,20 +28,19 @@ public class devMH_order {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
         DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now();   // Next day - '.plusDays(1)'
         currentDate = df.format(today);
 
         //========================================= SetUp Headless mode (if needed) =============================
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         //=================================== Create an instance of Driver ======================================
-        WebDriver driver = new ChromeDriver(options); //<<< insert "options" for headless mode
+        WebDriver driver = new ChromeDriver(); //<<< insert "options" for headless mode
         driver.manage().window().maximize();
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
 
         // ================================================>> LogIn <<=====================================================================================
-        devMHPageMethods.loginMH(driver);                                                                                                    //Login page
+        devMHPageMethods.loginMH(driver);                                                                                         //Login page
 
         // ==========================================>> HomePage/Address/Date <<===========================================================================
         wait.until(ExpectedConditions.titleContains("Current Jobs"));
@@ -49,7 +48,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
-        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click(); //                 //Current date
+        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                    //Current date
         //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");                  //Time old
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime']")).sendKeys("Afternoon");          //Time (new)
         //driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search old
@@ -57,7 +56,8 @@ public class devMH_order {
 
 
         // =================================================>> Provider select <<===========================================================================
-        while (true) {              // since provider can be not on the first page of the search result list
+
+        while (true)  {              // since provider can be not on the first page of the search result list
 
             List<WebElement> providerName = driver.findElements(By.xpath("//a[text()='TexasBest']"));
             if (!providerName.isEmpty()) {
@@ -70,32 +70,37 @@ public class devMH_order {
             System.out.println("Provider not found");
         }
 
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='TexasBest']")));                   //wait
-        //driver.findElement(By.xpath("//a[text()='TexasBest']")).click();                                                  //Provider select
-
         //==================================================>> Safeload option <<===========================================================================
+        devMHPageMethods.safeloadClose(driver);
 
-        devMHPageMethods.safeload(driver);
+        //devMHPageMethods.safeloadAdd(driver);
 
         // =================================================>> Service type select <<=======================================================================
+
         //devMHPageMethods.serviceType(driver);
 
         // =================================================>> Add/View Cart <<=============================================================================
+
         devMHPageMethods.addViewCart(driver);
 
         // ==================================================>> Discount Employee <<========================================================================
+
         //devMHPageMethods.discountEmployee(driver);
 
         // =====================================================>> Cert Info <<============================================================================
+
         //devMHPageMethods.infoCertificate(driver);
 
         // =====================================================>> CC Info <<==============================================================================
+
         devMHPageMethods.infoCC(driver);
 
         // =====================================================>> Payment Submit <<=======================================================================
+
         devMHPageMethods.paymentSubmit(driver);
 
         //======================================================>> Screenshot <<===========================================================================
+
         devMHPageMethods.screenShot(driver);
 
         //====================================================>> Pull Job/Order number <<==================================================================
@@ -111,9 +116,11 @@ public class devMH_order {
         //String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");                   //Convert to lowercase and remove prefix
         */
         //=========================================================>> Edit > Add Hours <<=======================================================================
+
         devMHPageMethods.editAddHours(driver);
 
         //=========================================================>> Edit > Add Helpers <<=====================================================================
+
         devMHPageMethods.editAddHelpers(driver);
 
         //=========================================================>> Cancellation <<===========================================================================
@@ -140,7 +147,7 @@ public class devMH_order {
         //========================================================>> Submit Review <<================================================================================
         driver.findElement(By.xpath("//button[.='Submit']")).click();
         System.out.println("Review Submitted");
-*/ // release payment to provider
+     */
 
         //=======================================================>> Closing Browser <<========================================================================
         driver.quit();

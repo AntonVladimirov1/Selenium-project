@@ -39,6 +39,7 @@ public class devHelperAccountCreation {
         driver.navigate().to(ConfigReader.getProperty("devProviderRegister"));
 
                                             //Sign Up page
+        try{
         driver.findElement(By.xpath("//*[@id='FirstName']")).sendKeys(faker.name().firstName());
         driver.findElement(By.xpath("//*[@id='LastName']")).sendKeys(faker.name().lastName());
         driver.findElement(By.xpath("//*[@id='Email']")).sendKeys(faker.internet().emailAddress());
@@ -51,31 +52,36 @@ public class devHelperAccountCreation {
         driver.findElement(By.xpath("//*[@id='TermsOfServiceAgreement']")).click();
         driver.findElement(By.xpath("//*[@id='register-button']")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div['row']/h2[.='Tell Us About Yourself']")));
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("Issue on SignUp page");
+        }
 
                                             //Application Page1
+        try{
         driver.findElement(By.xpath("//*[@id='Address']")).sendKeys("2727 N Central ave");
         driver.findElement(By.xpath("//*[@id='City']")).sendKeys("Phoenix");
         driver.findElement(By.xpath("//*[@id='Zip']")).sendKeys("85004");
         driver.findElement(By.xpath("//select[@id='State']/option[4]")).click();
-        driver.findElement(By.xpath("//*[@id='BusinessName']")).sendKeys("Best of the Best");
-        driver.findElement(By.xpath("//*[@id='businessdescriptionrte']")).sendKeys("Best of Antonio - this is automation created account");
+        driver.findElement(By.xpath("//*[@id='BusinessName']")).sendKeys("Best of the Best 777");
+        driver.findElement(By.xpath("//*[@id='businessdescriptionrte']")).sendKeys("Best of Antonio - this is auto created account");
         driver.findElement(By.xpath("//label[@class='radio-DOTcheckN']")).click();
         driver.findElement(By.xpath("//select[@id='ddl1']/option[2]")).click();
         driver.findElement(By.xpath("//select[@id='HowDidYouHearAboutUsSelectedID']/option[8]")).click();
         driver.findElement(By.xpath("//input[@id='IsWillingBackgroundCheck']/..")).click();
         driver.findElement(By.xpath("//input[@id='IndependentProvider']/..")).click();
-
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File source = ts.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "target/new_Provider1_" + today + ".png";
-        FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot 1 in target folder");
-
-
         driver.findElement(By.xpath("//button[.='Next']")).click();
+        } catch (org.openqa.selenium.TimeoutException e) {
+            System.out.println("Issue on Application Page1");
+        }
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[.='Photo and Document Uploads']")));
         System.out.println("Application Page1 - passes");
 
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "target/new_ProviderSignUp_" + today + ".png";
+        FileUtils.copyFile(source, new File(screenshotPath));
+        System.out.println("Screenshot 1 in target folder");
 
                                   //Application Page2
 

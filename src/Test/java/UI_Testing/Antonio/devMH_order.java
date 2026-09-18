@@ -17,7 +17,7 @@ import java.util.List;
 
 public class devMH_order {
 
-    public static String currentDate;
+    public static String plannedDate;
     public static String jobNumber;
     public static String orderNumber;
     //public static String jobNumberLower;
@@ -28,8 +28,8 @@ public class devMH_order {
 
         //================================== Created variable CURRENT DATE (from DatePicker) ==================
         DateTimeFormatter df = DateTimeFormatter.ofPattern("d");
-        LocalDate today = LocalDate.now();   // Next day - '.plusDays(1)'
-        currentDate = df.format(today);
+        LocalDate today = LocalDate.now(); // Next day -  '.plusDays(1)'
+        plannedDate = df.format(today);
 
         //========================================= SetUp Headless mode (if needed) =============================
         ChromeOptions options = new ChromeOptions();
@@ -48,7 +48,7 @@ public class devMH_order {
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_ServiceAddress']")).sendKeys(ConfigReader.getProperty("addressTX")); //Address
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobDate']")).click();                                  //Date field
         //driver.findElement(By.xpath("//input[@id='SearchModel_FirstLocation_JobDate']")).sendKeys(currentDate);
-        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + currentDate + "']")).click();                    //Current date
+        driver.findElement(By.xpath("//td[@data-handler='selectDay']/a[.='" + plannedDate + "']")).click();                    //Current date
         //driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime_Mobile']")).sendKeys("Evening");                  //Time old
         driver.findElement(By.xpath("//*[@id='SearchModel_FirstLocation_JobTime']")).sendKeys("Afternoon");          //Time (new)
         //driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search old
@@ -117,11 +117,11 @@ public class devMH_order {
         */
         //=========================================================>> Edit > Add Hours <<=======================================================================
 
-        devMHPageMethods.editAddHours(driver);
+        devMHPageMethods.AddHours(driver);
 
         //=========================================================>> Edit > Add Helpers <<=====================================================================
 
-        devMHPageMethods.editAddHelpers(driver);
+        devMHPageMethods.AddHelpers(driver);
 
         //=========================================================>> Cancellation <<===========================================================================
         //devMHPageMethods.cancellation(driver);

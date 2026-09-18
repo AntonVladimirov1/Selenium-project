@@ -109,7 +109,7 @@ public class devMHPageMethods {
         System.out.println("Screenshot in 'target'");
     }
 
-    public static void editAddHours (WebDriver driver) {
+    public static void AddHours(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
@@ -142,7 +142,7 @@ public class devMHPageMethods {
         driver.navigate().to("https://www.movinghelpd.com/jobs");
     }
 
-    public static void editAddHelpers (WebDriver driver){
+    public static void AddHelpers(WebDriver driver){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
         //String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");

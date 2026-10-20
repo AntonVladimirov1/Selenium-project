@@ -81,7 +81,7 @@ public class devHelperAccountCreation {
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/new_ProviderSignUp_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot 1 in target folder");
+        System.out.println("Screenshot in target folder");
 
                                   //Application Page2
 

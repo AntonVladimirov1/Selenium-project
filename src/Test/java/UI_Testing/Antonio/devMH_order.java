@@ -34,10 +34,11 @@ public class devMH_order {
         //========================================= SetUp Headless mode (if needed) =============================
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
         //=================================== Create an instance of Driver ======================================
         WebDriver driver = new ChromeDriver(); //<<< insert "options" for headless mode
         driver.manage().window().maximize();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<<<  declare "wait" variable
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));  // <<<  declare "wait" variable
 
         // ================================================>> LogIn <<=====================================================================================
         devMHPageMethods.loginMH(driver);                                                                                         //Login page
@@ -110,23 +111,23 @@ public class devMH_order {
         System.out.println(jobNumber);
         System.out.println(orderNumber);
 
-        //====================================>> Find Scheduled Job (recently created)========================================================================
+        //===============================================>> Find Scheduled Job (recently created)==========================================================
         /*String jobNumberSpecific = "1ea54dfa";
         //String jobNumberLower = jobNumber.toLowerCase().replace("job number:jb-", "");            //Convert to lowercase and remove prefix
         //String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");                   //Convert to lowercase and remove prefix
         */
-        //=========================================================>> Edit > Add Hours <<=======================================================================
+        //=========================================================>> Edit > Add Hours <<==================================================================
 
         devMHPageMethods.AddHours(driver);
 
-        //=========================================================>> Edit > Add Helpers <<=====================================================================
+        //=========================================================>> Edit > Add Helpers <<================================================================
 
         devMHPageMethods.AddHelpers(driver);
 
-        //=========================================================>> Cancellation <<===========================================================================
+        //=========================================================>> Cancellation <<======================================================================
         //devMHPageMethods.cancellation(driver);
 
-        //=========================================================>> Pay Helper <<=============================================================================
+        //=========================================================>> Pay Helper <<========================================================================
        /* String jobNumberSpecific = "80c4030a";
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberSpecific + "')]]"))); //Wait
@@ -149,7 +150,7 @@ public class devMH_order {
         System.out.println("Review Submitted");
      */
 
-        //=======================================================>> Closing Browser <<========================================================================
+        //=======================================================>> Closing Browser <<=====================================================================
         driver.quit();
 
     }

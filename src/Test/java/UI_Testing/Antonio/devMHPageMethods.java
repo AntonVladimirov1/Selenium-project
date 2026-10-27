@@ -100,13 +100,24 @@ public class devMHPageMethods {
         driver.findElement(By.xpath("//*[@id='ComModal']/div[1]/div[2]/a")).click();                                    //Confirmation Modal close
     }
 
-    public static void screenShot (WebDriver driver) throws IOException {
+    public static void screenShotOrder(WebDriver driver) throws IOException {
         LocalDate today = LocalDate.now();
         TakesScreenshot ts = (TakesScreenshot) driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
         String screenshotPath = "target/new_Order_" + today + ".png";
         FileUtils.copyFile(source, new File(screenshotPath));
-        System.out.println("Screenshot in 'target'");
+        System.out.println("Screenshot in target folder");
+    }
+
+    public static void screenShotNewSignUp(WebDriver driver) throws IOException {
+        LocalDate today = LocalDate.now();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, 0);");
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "target/new_ProviderSignUp_" + today + ".png";
+        FileUtils.copyFile(source, new File(screenshotPath));
+        System.out.println("Screenshot in target folder");
     }
 
     public static void AddHours(WebDriver driver) {

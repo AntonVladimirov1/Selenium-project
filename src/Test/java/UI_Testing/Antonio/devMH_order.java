@@ -102,7 +102,7 @@ public class devMH_order {
 
         //======================================================>> Screenshot <<===========================================================================
 
-        devMHPageMethods.screenShot(driver);
+        devMHPageMethods.screenShotOrder(driver);
 
         //====================================================>> Pull Job/Order number <<==================================================================
         // driver.findElement(By.xpath("//div[@id='ComModal']//a[@href='#']//i")).click();

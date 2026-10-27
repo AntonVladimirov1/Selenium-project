@@ -55,9 +55,7 @@ public class devMH_order {
         //driver.findElement(By.xpath("//button[.='Search']")).click();                                                            //Search old
         driver.findElement(By.xpath("//*[@id='findHelpersButton']")).click();                                                  //Search (new)
 
-
         // =================================================>> Provider select <<===========================================================================
-
         while (true)  {              // since provider can be not on the first page of the search result list
 
             List<WebElement> providerName = driver.findElements(By.xpath("//a[text()='TexasBest']"));
@@ -77,31 +75,24 @@ public class devMH_order {
         //devMHPageMethods.safeloadAdd(driver);
 
         // =================================================>> Service type select <<=======================================================================
-
         //devMHPageMethods.serviceType(driver);
 
         // =================================================>> Add/View Cart <<=============================================================================
-
         devMHPageMethods.addViewCart(driver);
 
         // ==================================================>> Discount Employee <<========================================================================
-
         //devMHPageMethods.discountEmployee(driver);
 
         // =====================================================>> Cert Info <<============================================================================
-
         //devMHPageMethods.infoCertificate(driver);
 
         // =====================================================>> CC Info <<==============================================================================
-
         devMHPageMethods.infoCC(driver);
 
         // =====================================================>> Payment Submit <<=======================================================================
-
         devMHPageMethods.paymentSubmit(driver);
 
         //======================================================>> Screenshot <<===========================================================================
-
         devMHPageMethods.screenShotOrder(driver);
 
         //====================================================>> Pull Job/Order number <<==================================================================
@@ -117,11 +108,9 @@ public class devMH_order {
         //String orderNumberLower = orderNumber.toLowerCase().replace("or-", "");                   //Convert to lowercase and remove prefix
         */
         //=========================================================>> Edit > Add Hours <<==================================================================
-
         devMHPageMethods.AddHours(driver);
 
         //=========================================================>> Edit > Add Helpers <<================================================================
-
         devMHPageMethods.AddHelpers(driver);
 
         //=========================================================>> Cancellation <<======================================================================
@@ -137,15 +126,14 @@ public class devMH_order {
         driver.findElement(By.xpath("((//button[contains(@data-jobguid,'" + jobNumberSpecific + "') and contains(@class,'button pay-job submit-button')])[1])[1]")).click();
         wait.until(ExpectedConditions.titleContains("Review"));      //Wait
         System.out.println("Job Completed");
-
+        */
         //========================================================>> Review <<================================================================================
-        driver.findElement(By.xpath("//*[@id='OutstandingCommunications']/..")).click();
+       /* driver.findElement(By.xpath("//*[@id='OutstandingCommunications']/..")).click();
         driver.findElement(By.xpath("//*[@id='OutstandingProfessionalism']/..")).click();                 // ALL 5 STARS
         driver.findElement(By.xpath("//*[@id='OutstandingServices']/..")).click();
         driver.findElement(By.xpath("//*[@id='OutstandingOverall']/..")).click();
-        //=========================================================>> Tips <<=================================================================================
-                                                    ??????????????????
-        //========================================================>> Submit Review <<================================================================================
+        //=================================>> Tips <<====??????????????????
+        //=============================>> Submit Review <<================
         driver.findElement(By.xpath("//button[.='Submit']")).click();
         System.out.println("Review Submitted");
      */
@@ -155,4 +143,4 @@ public class devMH_order {
 
     }
 }
-              //========================================================>> End <<=======================================================//
+                                             //====================>> The End <<======================//

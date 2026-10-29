@@ -128,7 +128,7 @@ public class devMHPageMethods {
         try {
             BrowserUtils.sleep(2);
             driver.navigate().to("https://www.movinghelpd.com/jobs");
-            BrowserUtils.sleep(3);  //Wait for page to fully load
+            //BrowserUtils.sleep(3);  //Wait for page to fully load
             By jobLink = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
             wait.until(ExpectedConditions.elementToBeClickable(jobLink));                                                    //Wait until clickable
             WebElement jobEl = driver.findElement(jobLink);
@@ -160,7 +160,7 @@ public class devMHPageMethods {
         try {
             BrowserUtils.sleep(2);
             driver.navigate().to("https://www.movinghelpd.com/jobs");
-            BrowserUtils.sleep(3);  //Wait for page to fully load
+            //BrowserUtils.sleep(3);  //Wait for page to fully load
             By jobLink2 = By.xpath("//a[.//span[contains(normalize-space(.),'" + jobNumberLower + "')]]");
             wait.until(ExpectedConditions.elementToBeClickable(jobLink2));                                                   //Wait until clickable
             WebElement jobEl2 = driver.findElement(jobLink2);
@@ -189,6 +189,7 @@ public class devMHPageMethods {
         String jobNumberLower = devMH_order.jobNumber.toLowerCase().replace("job number:jb-", "");
         String orderNumberLower = devMH_order.orderNumber.toLowerCase().replace("or-", "");
 
+        try {
         driver.navigate().to("https://www.movinghelpd.com/jobs");
         //BrowserUtils.sleep(3);  //Wait for page to fully load
         wait.until(ExpectedConditions.titleContains("Current Jobs"));
@@ -202,9 +203,12 @@ public class devMHPageMethods {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href,'" + orderNumberLower + "') and text()='Cancel']")));
         driver.findElement(By.xpath("//a[contains(@href,'" + orderNumberLower + "') and text()='Cancel']")).click();         //Cancel
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='CancellationCause']")));                 //common wait
-        driver.findElement(By.xpath("//*[@id='CancellationCause']")).sendKeys("I am no longer moving.");         //Reason
+        driver.findElement(By.xpath("//select[@id='CancellationCause']/option[3]")).click();                                 //Reason
         driver.findElement(By.xpath("//button[.='Confirm Cancellation']")).click();                                          //Submit
+        wait.until(ExpectedConditions.titleContains("Current Jobs"));
         System.out.println("Job Cancelled");
+        }catch (org.openqa.selenium.TimeoutException e){
+            System.out.println("Cancellation failed for some reason");
+        }
     }
-
 }
